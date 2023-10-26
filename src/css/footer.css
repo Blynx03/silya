@@ -1,0 +1,7 @@
+.footer-container {
+    border: 1px solid blue;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 10vh;
+}

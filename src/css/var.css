@@ -1,0 +1,26 @@
+:root {
+  --bebas: "Bebas Neue", sans-serif;
+  --jost: "Jost", sans-serif;
+  --playfair: "Playfair Display", serif;
+  --roboto: "Roboto", sans-serif;
+  --rubik: "Rubik", sans-serif;
+  --lato: "Lato", sans-serif;
+  --montserrat: "Montserrat", sans-serif;
+  /* color theme */
+  --primary1: #e9dacb;
+  --accent1-1: #434433;
+  --accent1-2: #f4ede1;
+  --accent1-3: #ffb84d52;
+
+  /* secondary color theme */
+  --primary2: #adc4d7;
+  --accent2-1: #e09c8b;
+  --accent2-2: #e9dacb;
+  --accent2-3: #f4ede1;
+
+  /* tertiary color theme */
+  --primary3: #434433;
+  --accent3-1: #d09577;
+  --accent3-2: #ffb74d;
+  --accent3-3: #ffb84d52;
+}

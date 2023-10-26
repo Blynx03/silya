@@ -1,0 +1,57 @@
+@import "var.css";
+
+.home-container {
+  width: 100vh;
+  height: 88%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 10px solid red;
+}
+
+.image-container {
+  width: 80%;
+  height: 72%;
+  display: grid;
+  grid-template-columns: repeat(3, 18%) 26%;
+  grid-template-rows: 36% 10% 26%;
+  grid-template-areas:
+    "img1 img1 img2 desc"
+    "img1 img1 img2 desc"
+    "img3 img4 img2 desc"
+    "img3 img4 img5 desc";
+  gap: 10px;
+  border: 1px solid red;
+}
+
+.home-image1 {
+  grid-area: img1;
+  object-fit: contain;
+}
+
+.home-image2 {
+  grid-area: img2;
+  object-fit: contain;
+}
+
+.home-image3 {
+  grid-area: img3;
+  object-fit: contain;
+}
+
+.home-image4 {
+  grid-area: img4;
+  object-fit: contain;
+}
+
+.home-image5 {
+  grid-area: img5;
+  object-fit: contain;
+}
+
+.content-description {
+  grid-area: desc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

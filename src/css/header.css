@@ -1,0 +1,113 @@
+@import "var.css";
+
+.header-container {
+  position: relative;
+  display: flex;
+  height: 12%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* padding: 4% 10%; */
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(10deg, black 0%, #d09577 95%, #e7c2af 100%);
+}
+
+.logo-container {
+  width: 30%;
+  height: 120%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.img-silya-container {
+  width: 60%;
+  height: 70%;
+  position: absolute;
+  left: 40%;
+  border-bottom: 1px solid gold;
+  /* background-color: gold; */
+  display: flex;
+  align-items: center;
+}
+
+.silya-img {
+  width: 25%;
+  height: 70%;
+  transform: scaleX(1.2);
+  filter: invert(97%) sepia(100%) saturate(1000%) hue-rotate(315deg);
+  /* filter: hue-rotate(180deg); */
+}
+
+.name-slogan-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slogan,
+.silya {
+  font-family: var(--playfair);
+  background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    rgb(176, 142, 18) 0%,
+    rgb(237, 193, 36) 35%,
+    rgb(248, 247, 241) 50%,
+    rgb(237, 193, 36) 65%,
+    rgb(176, 142, 18) 100%
+  );
+  color: transparent;
+  letter-spacing: 4px;
+}
+
+.silya {
+  font-size: 3.5rem;
+  font-weight: 600;
+  transform: scaleY(1.35);
+  margin-left: 10px;
+}
+
+.slogan {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  transform: scaleY(0.8);
+  letter-spacing: 3px;
+}
+
+.title-nav-container {
+  position: relative;
+  display: flex;
+  width: 70%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-container {
+  position: absolute;
+  font-family: var(--montserrat);
+  font-weight: 200;
+  width: 70%;
+  height: 60%;
+  font-size: 3.2rem;
+  text-align: center;
+  /* color: var(--primary1); */
+  /* background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(
+    30deg,
+    var(--primary1) 0,
+    var(--accent1-1) 100%
+  ); */
+  transform: translate(9%, -5%) scaleY(1.1);
+  /* color: transparent; */
+  color: var(--accent1-2);
+  white-space: nowrap;
+  letter-spacing: 3px;
+  text-shadow: 0 0 2px black;
+}
