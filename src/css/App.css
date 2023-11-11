@@ -4,4 +4,40 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-wrapper,
+.footer-wrapper {
+  flex: 0 0 5%;
+  z-index: 10;
+}
+
+.aside-container {
+  position: absolute;
+  width: 180px;
+  height: 63%;
+  top: 6.2%;
+  left: 0;
+  visibility: visible;
+}
+
+.content-container {
+  width: calc(100vw - 180px);
+  height: 89.5%;
+  position: absolute;
+  top: 6.2%;
+  left: 180px;
+}
+/* 
+.home-wrapper {
+  flex: 1;
+} */
+
+.footer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

@@ -1,51 +1,92 @@
 @import "var.css";
 
-.header-container {
-  position: relative;
+.header-wrapper {
+  position: sticky;
   display: flex;
-  height: 12%;
-  top: 0;
-  left: 0;
+  min-height: 4rem;
   width: 100%;
   /* padding: 4% 10%; */
-  align-items: center;
   justify-content: center;
-  background-image: linear-gradient(10deg, black 0%, #d09577 95%, #e7c2af 100%);
+  background-image: linear-gradient(182deg, black 0%, #d09577 120%);
+}
+
+.header-container {
+  min-width: 80rem;
+  width: clamp(60rem, 75rem, 80rem);
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .header-container {
+    height: 90px;
+    display: grid;
+    gap: 0;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 55% 45%;
+    grid-template-areas:
+      "logo nav"
+      "search search";
+  }
+}
+
+@media (max-width: 460px) {
+  .header-container {
+    grid-template-columns: 50% 50%;
+  }
 }
 
 .logo-container {
-  width: 30%;
-  height: 120%;
+  width: 33.34%;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   position: relative;
 }
 
-.img-silya-container {
-  width: 60%;
-  height: 70%;
-  position: absolute;
-  left: 40%;
-  border-bottom: 1px solid gold;
-  /* background-color: gold; */
-  display: flex;
-  align-items: center;
+@media (max-width: 720px) {
+  .logo-container {
+    width: 100%;
+    grid-area: logo;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .silya-img {
-  width: 25%;
-  height: 70%;
-  transform: scaleX(1.2);
+  width: 44px;
+  height: 80%;
+  transform: scaleX(1.1);
   filter: invert(97%) sepia(100%) saturate(1000%) hue-rotate(315deg);
   /* filter: hue-rotate(180deg); */
 }
 
-.name-slogan-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@media (max-width: 720px) {
+  .silya-img {
+    width: 38px;
+  }
+}
+
+.silya {
+  font-size: 2.5rem;
+  font-weight: 600;
+  transform: scaleY(1.1);
+  margin-bottom: 1.4%;
+}
+
+@media (max-width: 1280px) {
+  .silya {
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 1124px) {
+  .silya {
+    letter-spacing: 0;
+  }
 }
 
 .slogan,
@@ -53,61 +94,122 @@
   font-family: var(--playfair);
   background-clip: text;
   background-image: linear-gradient(
-    to right,
+    15deg,
     rgb(176, 142, 18) 0%,
-    rgb(237, 193, 36) 35%,
-    rgb(248, 247, 241) 50%,
-    rgb(237, 193, 36) 65%,
+    rgb(237, 193, 36) 23%,
+    rgb(248, 247, 241) 30%,
+    rgb(237, 193, 36) 47%,
+    rgb(237, 193, 36) 63%,
+    rgb(248, 247, 241) 70%,
+    rgb(237, 193, 36) 77%,
     rgb(176, 142, 18) 100%
   );
   color: transparent;
-  letter-spacing: 4px;
-}
-
-.silya {
-  font-size: 3.5rem;
-  font-weight: 600;
-  transform: scaleY(1.35);
-  margin-left: 10px;
+  letter-spacing: 1px;
 }
 
 .slogan {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  margin-left: 10px;
+  font-size: 1rem;
   transform: scaleY(0.8);
-  letter-spacing: 3px;
-}
-
-.title-nav-container {
-  position: relative;
+  border-bottom: 1px solid gold;
+  padding-bottom: 1%;
   display: flex;
-  width: 70%;
-  height: 100%;
-  flex-direction: column;
   justify-content: center;
 }
 
-.title-container {
-  position: absolute;
-  font-family: var(--montserrat);
-  font-weight: 200;
-  width: 70%;
-  height: 60%;
-  font-size: 3.2rem;
-  text-align: center;
-  /* color: var(--primary1); */
-  /* background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(
-    30deg,
-    var(--primary1) 0,
-    var(--accent1-1) 100%
-  ); */
-  transform: translate(9%, -5%) scaleY(1.1);
-  /* color: transparent; */
-  color: var(--accent1-2);
+@media (max-width: 1280px) {
+  .slogan {
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 1124px) {
+  .slogan {
+    text-align: center;
+    letter-spacing: 0;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .slogan {
+    display: none;
+  }
+}
+
+.search-container {
+  width: 33.34%;
+  display: flex;
+  align-items: center;
+  padding: 0rem 0.5rem;
+  justify-content: space-between;
+  min-height: 30px;
+  background-color: var(--accent1-2);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+  .search-container {
+    grid-area: search;
+    min-width: 90%;
+    justify-self: center;
+  }
+}
+
+/* search and camera icon */
+.search-container .material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent1-1);
+}
+
+.search-photo-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.search-photo-icon:hover::before {
+  content: "Search SILYA products using a photo";
+  font-family: var(--roboto);
+  color: var(--primary1);
   white-space: nowrap;
-  letter-spacing: 3px;
-  text-shadow: 0 0 2px black;
+  position: absolute;
+  font-size: 0.7rem;
+  padding: 5px 10px;
+  background-color: var(--accent1-1);
+  border: none;
+  border-radius: 5px;
+  top: 150%;
+}
+
+.search {
+  width: 78%;
+  height: 30px;
+  background-color: var(--accent1-2);
+  border: none;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.nav-container {
+  width: 33.33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .nav-container {
+    grid-area: nav;
+    width: 100%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+  }
 }
