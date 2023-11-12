@@ -10,9 +10,14 @@ const NavSideLinks = () => {
   //   document.querySelector(`.${item}`).setAttribute(`href`, `#${href}`);
   // };
 
+  const spreadProducts = () => {
+    document.querySelector(".chair").style.animation =
+      "spread 1200ms ease forwards";
+  };
+
   return (
     <section className="sidebar-container">
-      <div className="list-title">
+      <div className="list-title" onClick={spreadProducts}>
         PRODUCTS<span className="material-symbols-outlined">expand_more</span>
       </div>
       <ul className="sidebar-list-container">

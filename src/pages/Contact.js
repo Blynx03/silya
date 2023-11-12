@@ -48,84 +48,90 @@ const Contact = () => {
         CONTACT US
       </header>
       <section className="section-container">
-        <form className="user-information-container">
+        <form className="user-information-form">
           <label htmlFor="firstname" className="contact-firstname-label">
-            <input
-              type="text"
-              className="contact-firstname-input contact-input"
-              name="firstname"
-              value={contactFormData.firstname}
-              placeholder="First Name"
-              onChange={(e) => handleContactChange(e)}
-              required
-            />
             First Name
           </label>
+          <input
+            type="text"
+            className="contact-firstname-input contact-input"
+            name="firstname"
+            value={contactFormData.firstname}
+            placeholder="First Name"
+            onChange={(e) => handleContactChange(e)}
+            required
+          />
+
           <label htmlFor="lastname" className="contact-lastname-label">
-            <input
-              type="text"
-              className="contact-lastname-input contact-input"
-              name="lastname"
-              value={contactFormData.lastname}
-              placeholder="Last Name"
-              onChange={(e) => handleContactChange(e)}
-              required
-            />
             Last Name
           </label>
+          <input
+            type="text"
+            className="contact-lastname-input contact-input"
+            name="lastname"
+            value={contactFormData.lastname}
+            placeholder="Last Name"
+            onChange={(e) => handleContactChange(e)}
+            required
+          />
+
           <label htmlFor="email" className="contact-email-label">
-            <input
-              type="email"
-              className="contact-email-input contact-input"
-              name="email"
-              value={contactFormData.email}
-              placeholder="Email Address"
-              onChange={(e) => handleContactChange(e)}
-              required
-            />
             Email Address
           </label>
+          <input
+            type="email"
+            className="contact-email-input contact-input"
+            name="email"
+            value={contactFormData.email}
+            placeholder="Email Address"
+            onChange={(e) => handleContactChange(e)}
+            required
+          />
+
           <label htmlFor="phone" className="contact-phone-label">
-            <input
-              type="text"
-              className="contact-phone-input contact-input"
-              name="phone"
-              value={contactFormData.phone}
-              placeholder="Telephone"
-              onChange={(e) => handleContactChange(e)}
-            />
             Telephone Number
           </label>
+          <input
+            type="text"
+            className="contact-phone-input contact-input"
+            name="phone"
+            value={contactFormData.phone}
+            placeholder="Telephone"
+            onChange={(e) => handleContactChange(e)}
+          />
+
           <label htmlFor="subject" className="contact-subject-label">
-            <input
-              type="text"
-              className="contact-subject-input contact-input"
-              name="subject"
-              value={contactFormData.subject}
-              placeholder="Subject"
-              onChange={(e) => handleContactChange(e)}
-              required
-            />
             Subject
           </label>
+          <input
+            type="text"
+            className="contact-subject-input contact-input"
+            name="subject"
+            value={contactFormData.subject}
+            placeholder="Subject"
+            onChange={(e) => handleContactChange(e)}
+            required
+          />
+
           <label htmlFor="message" className="contact-message-label">
-            <textarea
-              id="message"
-              className="contact-message-input"
-              name="message"
-              value={contactFormData.message}
-              placeholder="Message"
-              onChange={(e) => handleContactChange(e)}
-              required
-            />
             Message
           </label>
+          <textarea
+            id="message"
+            className="contact-message-input"
+            name="message"
+            value={contactFormData.message}
+            placeholder="Message"
+            onChange={(e) => handleContactChange(e)}
+            required
+          />
+
           <button className="contact-submit-btn">SUBMIT</button>
         </form>
         <div className="contact-information-container">
           <div className="contact-address-container">
             <div className="contact-pin-icon">
-              <span class="material-symbols-outlined push-pin-icon">
+              <span className="material-symbols-outlined push-pin-icon">
                 push_pin
               </span>
             </div>
@@ -135,7 +141,7 @@ const Contact = () => {
           </div>
           <div className="contact-phone-container">
             <div className="contact-phone-icon">
-              <span class="material-symbols-outlined phone-icon">
+              <span className="material-symbols-outlined phone-icon">
                 phone_in_talk
               </span>
             </div>
@@ -144,7 +150,7 @@ const Contact = () => {
           </div>
           <div className="contact-hours-container">
             <div className="contact-hours-icon time-icon">
-              <span class="material-symbols-outlined">schedule</span>
+              <span className="material-symbols-outlined">schedule</span>
             </div>
             <div className="contact-hours-title">HOURS</div>
             <div className="contact-days">Monday - Friday</div>
@@ -152,7 +158,7 @@ const Contact = () => {
           </div>
           <div className="contact-support-container">
             <div className="contact-email-icon email-icon">
-              <span class="material-symbols-outlined">outgoing_mail</span>
+              <span className="material-symbols-outlined">outgoing_mail</span>
             </div>
             <div className="contact-support-title">SUPPORT</div>
             <div className="contact-support-email">support@silya.com</div>

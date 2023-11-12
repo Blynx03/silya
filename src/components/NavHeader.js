@@ -5,7 +5,9 @@ import "../css/navheader.css";
 
 const NavHeader = () => {
   const clientContext = useContext(UserContext);
+  const setUserInfo = clientContext.setUserInfo;
   const cartQuantity = clientContext.cartQuantity;
+  const loginHeader = document.querySelector(".login");
 
   return (
     <div className="nav-container">
@@ -18,9 +20,16 @@ const NavHeader = () => {
       <Link to="/contact" className="top-links contact">
         Contact
       </Link>
+      {/* {loginHeader && loginHeader.textContent === "Logout" ? (
+        <>
+          {(loginHeader.textContent = "Login")}
+          {setUserInfo({})}
+        </>
+      ) : ( */}
       <Link to="/login" className="top-links login">
         Login
       </Link>
+      {/* )} */}
       <Link
         to={{
           pathname: "/checkout",

@@ -79,7 +79,7 @@ const Gallery = () => {
         chairElement.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, []);
+  }, [location.hash]);
 
   return (
     <section className="gallery-wrapper">

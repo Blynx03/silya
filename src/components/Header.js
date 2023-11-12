@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "../css/header.css";
-import "../css/App.css";
+// import "../css/App.css";
 import NavHeader from "./NavHeader";
 
 const Header = () => {

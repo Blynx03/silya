@@ -9,6 +9,7 @@ const Login = () => {
   let [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const userInfo = clientContext.userInfo;
+  const setUserInfo = clientContext.setUserInfo;
   const customersRecord = clientContext.customersRecord;
   const setCustomersRecord = clientContext.setCustomersRecord;
   let loggedIn = clientContext.loggedIn;
@@ -24,7 +25,9 @@ const Login = () => {
     signup_confirm_password: "",
   });
   if (document.querySelector(".login").textContent === "Logout") {
-    clientContext.userInfo = {};
+    clientContext.setUserInfo({});
+    setLoggedIn(false);
+    document.querySelector(".login").textContent = "Login";
     navigate("/");
   }
 
