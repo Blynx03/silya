@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import UserContext from "../context/UserContext";
 import "../css/details.css";
 import "../css/gallery.css";
@@ -23,6 +23,7 @@ const Details = () => {
   const deliveryOption = clientContext.deliveryOption;
   const setDeliveryOption = clientContext.setDeliveryOption;
   const loggedIn = clientContext.loggedIn;
+  const setCustomer = clientContext.setCustomer;
 
   const navigate = useNavigate();
 
@@ -30,19 +31,39 @@ const Details = () => {
 
   let detailsImagePath = getImagePath(lastClicked.category, lastClicked.name);
 
+  useEffect(() => {
+    document.querySelector(".aside-container").style.visibility = "visible";
+  }, []);
+
   const changeMainImage = (newSrc) => {
     document.querySelector(".details-main-image").setAttribute("src", newSrc);
   };
 
   const handleAddToCart = () => {
-    let newItem = { ...lastClicked, quantity: quantity };
-    console.log(userInfo);
+    if (lastClickedDetails.stock === 0) {
+      alert("No stock available");
+      return;
+    }
+    let newItem = {
+      ...lastClicked,
+      quantity: quantity,
+      delivery_method: "deliver",
+    };
+
     userInfo.cartItems =
       userInfo.cartItems && userInfo.cartItems.length > 0
         ? [...userInfo.cartItems, newItem]
         : [newItem];
     setCartQuantity((prev) => prev + quantity);
+
+    // storing userinfo to localstorage without the password
+    let lastUserRecord = { ...userInfo, password: "" };
+    localStorage.setItem("userHistory", JSON.stringify(lastUserRecord));
   };
+
+  useEffect(() => {
+    setCustomer(userInfo);
+  }, [userInfo]);
 
   const handleCheckOut = () => {
     setUserInfo((prev) => ({
@@ -50,7 +71,23 @@ const Details = () => {
       buyItems: prev.cartItems,
     }));
     // setCartQuantity((prev) => prev + quantity);
-    loggedIn === true ? navigate("/checkout") : navigate("/login");
+    loggedIn ? navigate("/checkout") : navigate("/login");
+  };
+
+  const handleDeliveryOption = (e) => {
+    setDeliveryOption(e.target.dataset.value);
+    userInfo.cartItems = {
+      ...userInfo.cartItems,
+      delivery_method: e.target.dataset.value,
+    };
+  };
+
+  const checkQuantity = () => {
+    if (lastClickedDetails.stock <= 0) {
+      return 0;
+    } else {
+      return quantity;
+    }
   };
 
   const styleGallery = () => {
@@ -66,10 +103,6 @@ const Details = () => {
       }
     }
     return {};
-  };
-
-  const handleDeliveryOption = (e) => {
-    setDeliveryOption(e.target.dataset.value);
   };
 
   return (
@@ -270,7 +303,11 @@ const Details = () => {
                 <button
                   className="details-decrease-quantity-button"
                   onClick={() =>
-                    setQuantity((prev) => (prev === 0 ? 0 : prev - 1))
+                    setQuantity((prev) =>
+                      prev === 0 || lastClickedDetails.stock === 0
+                        ? 0
+                        : prev - 1
+                    )
                   }
                 >
                   -
@@ -279,14 +316,10 @@ const Details = () => {
                 <input
                   type="text"
                   className="details-quantity-input"
-                  value={quantity}
+                  value={checkQuantity()}
                   onChange={(e) => {
                     const newValue = parseInt(e.target.value);
-                    if (
-                      !isNaN(newValue) &&
-                      newValue >= 0 &&
-                      newValue <= lastClickedDetails.stock
-                    ) {
+                    if (newValue > 0 && newValue <= lastClickedDetails.stock) {
                       setQuantity(newValue);
                     }
                   }}

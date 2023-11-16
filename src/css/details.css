@@ -74,9 +74,12 @@
 
 .star-container {
   gap: 6px;
+  display: flex;
+  align-items: center;
 }
 .star-container > img {
   width: 20px;
+  height: 20px;
 }
 
 .details-reviews {
@@ -137,14 +140,14 @@
   gap: 20px;
   overflow: scroll;
   padding: 1em 1em 1em 3em;
-
   box-sizing: border-box;
 }
 
 .details-per-gallery-image-container {
   position: relative;
-  width: 65%;
-  padding-bottom: 60%;
+  width: clamp(45%, 50%, 60%);
+  padding-bottom: 45%;
+  /* height: clamp(30%, 35%, 60%); */
   overflow: hidden;
   box-shadow: 0 0 12px gray;
   border-radius: 10px;

@@ -1,38 +1,88 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import getImagePath from "../components/getImagePath";
 import "../css/checkout.css";
 import UserContext from "../context/UserContext";
 
 const Checkout = () => {
-  // getting the client's record from customers database"
   const clientContext = useContext(UserContext);
-  let cartQuantity = clientContext.cartQuantity;
-  let deliveryOption = clientContext.deliveryOption;
-  let setDeliveryOption = clientContext.setDeliveryOption;
 
-  const location = useLocation();
-  const customer = location.state.customer;
-  let [subTotalPrice, setSubTotalPrice] = useState(0);
+  const cartQuantity = clientContext.cartQuantity;
+  const subTotalPrice = clientContext.subTotalPrice;
+  const setSubTotalPrice = clientContext.setSubTotalPrice;
+  const deliveryOption = clientContext.deliveryOption;
+  const setDeliveryOption = clientContext.setDeliveryOption;
+  const setCartQuantity = clientContext.setCartQuantity;
+  const userInfo = clientContext.userInfo;
+  const setUserInfo = clientContext.setUserInfo;
+  const customer = clientContext.customer;
+  const setCustomer = clientContext.setCustomer;
+
+  const navigate = useNavigate();
+
+  // const location = useLocation();
+
+  console.log(userInfo);
+  console.log(customer);
 
   // document.querySelector(".aside-container").style.visibility = "hidden";
-  console.log(clientContext.userInfo);
-  console.log(customer);
+
   useEffect(() => {
-    const newSubTotal = customer.cartItems.reduce(
+    if (customer === "" || customer === null || customer === undefined) {
+      alert("No items in cart!");
+      navigate("/");
+    }
+  }, [userInfo, userInfo.cartItems.quantity]);
+
+  useEffect(() => {
+    let newQuantity = 0;
+    const newSubTotal = userInfo.cartItems.reduce(
       (total, item) =>
         // prettier-ignore
         total + (item.price * item.quantity),
       0
     );
     setSubTotalPrice(newSubTotal);
-  }, [customer.cartItems]);
+    userInfo.cartItems.forEach((prod) => {
+      newQuantity += prod.quantity;
+    });
+    setCartQuantity(newQuantity);
+  }, [userInfo.cartItems, userInfo.cartItems.quantity]);
 
   const handleDelivery = (e) => {
+    console.log(e.target.dataset.value);
+    console.log(deliveryOption);
     setDeliveryOption(e.target.dataset.value);
   };
 
-  console.log(subTotalPrice);
+  console.log("delivery option outside function ", deliveryOption);
+  const handleDelete = (item) => {
+    let newQuantity = 0;
+    setUserInfo((prevCustomer) => {
+      const updatedCustomerItems = prevCustomer.cartItems.filter(
+        (cartItem) =>
+          cartItem.category !== item.category && cartItem.name !== item.name
+      );
+      updatedCustomerItems.forEach((i) => {
+        newQuantity += i.quantity;
+      });
+      return { ...prevCustomer, cartItems: updatedCustomerItems };
+    });
+    setCartQuantity(newQuantity);
+  };
+
+  const handleCheckout = () => {
+    let updatedCustomer = { ...userInfo, delivery_method: deliveryOption };
+    setCustomer(updatedCustomer);
+    let updatedUserInfo = {
+      ...userInfo,
+      password: "",
+      delivery_method: deliveryOption,
+    };
+    localStorage.setItem("userHistory", JSON.stringify(updatedUserInfo));
+    navigate("/payment");
+  };
+
   return (
     <div className="checkout-container">
       <div className="cart-checkout-container">
@@ -86,10 +136,28 @@ const Checkout = () => {
                         className="cart-description-quantity"
                         name="checkout_quantity"
                         value={item.quantity}
-                        onChange={(e) => (item.quantity = e.target.value)}
+                        onChange={(e) => {
+                          setUserInfo((prev) => {
+                            const updatedCartItems = prev.cartItems.map(
+                              (cartItem) =>
+                                cartItem === item
+                                  ? {
+                                      ...cartItem,
+                                      quantity: parseInt(e.target.value, 10),
+                                    }
+                                  : cartItem
+                            );
+                            return { ...prev, cartItems: updatedCartItems };
+                          });
+                        }}
                       />
                     </div>
-                    <div className="cart-description-delete">Delete</div>
+                    <div
+                      className="cart-description-delete"
+                      onClick={() => handleDelete(item)}
+                    >
+                      Delete
+                    </div>
                   </div>
                 </div>
               </div>
@@ -119,14 +187,15 @@ const Checkout = () => {
               </span>
             </div>
             <div className="checkout-delivery-option-container">
-              <label htmlFor="delivery" className="checkout-delivery-label">
+              <label htmlFor="deliver" className="checkout-delivery-label">
                 <input
                   type="radio"
                   className="checkout-delivery-input"
-                  name="delivery"
-                  data-value="delivery"
-                  checked={deliveryOption === "delivery"}
-                  onChange={() => handleDelivery}
+                  id="deliver"
+                  name="deliver"
+                  data-value="deliver"
+                  checked={deliveryOption === "deliver"}
+                  onChange={handleDelivery}
                 />
                 SHIP TO HOME
               </label>
@@ -134,16 +203,21 @@ const Checkout = () => {
                 <input
                   type="radio"
                   className="checkout-pickup-input"
+                  id="pickup"
                   name="pickup"
                   data-value="pickup"
                   checked={deliveryOption === "pickup"}
-                  onChange={() => handleDelivery}
+                  onChange={handleDelivery}
                 />{" "}
                 PICK-UP IN STORE
               </label>
             </div>
 
-            <button type="button" className="checkout-btn">
+            <button
+              type="button"
+              className="checkout-btn"
+              onClick={handleCheckout}
+            >
               CHECKOUT
             </button>
           </div>

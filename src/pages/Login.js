@@ -12,6 +12,8 @@ const Login = () => {
   const setUserInfo = clientContext.setUserInfo;
   const customersRecord = clientContext.customersRecord;
   const setCustomersRecord = clientContext.setCustomersRecord;
+  const customer = clientContext.customer;
+  const setCustomer = clientContext.setCustomer;
   let loggedIn = clientContext.loggedIn;
   let setLoggedIn = clientContext.setLoggedIn;
 
@@ -24,56 +26,76 @@ const Login = () => {
     signup_password: "",
     signup_confirm_password: "",
   });
-  if (document.querySelector(".login").textContent === "Logout") {
-    clientContext.setUserInfo({});
-    setLoggedIn(false);
-    document.querySelector(".login").textContent = "Login";
-    navigate("/");
-  }
+  // if (document.querySelector(".login").textContent === "Logout") {
+  //   clientContext.setUserInfo({});
+  //   setLoggedIn(false);
+  //   document.querySelector(".login").textContent = "Login";
+  //   navigate("/");
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     if (e.target.dataset.value === "signup-form") {
-      userInfo.userId = formData.get("signup_email");
-      userInfo.firstName = formData.get("signup_firstname");
-      userInfo.lastName = formData.get("signup_lastname");
-      userInfo.email = formData.get("signup_email");
-      userInfo.password = formData.get("signup_password");
-      userInfo.confirmPassword = formData.get("signup_confirm_password");
-
+      setUserInfo((prev) => ({
+        ...prev,
+        userId: formData.get("signup_email"),
+        firstName: formData.get("signup_firstname"),
+        lastName: formData.get("signup_lastname"),
+        email: formData.get("signup_email"),
+        password: formData.get("signup_password"),
+        confirmPassword: formData.get("signup_confirm_password"),
+      }));
       customersRecord.forEach((customer) => {
-        if (customer.userId === userInfo.userId) {
+        if (customer.userId === formData.get("signup_email")) {
           alert("Record already exists. Please login");
           setIsLogin(true);
         } else {
-          document.querySelector(".login").textContent = "Logout";
+          // document.querySelector(".login").textContent = "Logout";
           setLoggedIn(true);
-          setCustomersRecord((prev) => [...prev, userInfo]);
-          userInfo.cartItems || Object.keys(userInfo.cartItems).length === 0
-            ? navigate("/checkout", { state: { customer: customer } })
-            : navigate("/gallery");
+          // setCustomersRecord((prev) => [...prev, userInfo]);
+          setUserInfo((prev) => ({
+            ...prev,
+            userId: formData.get("signup_email"),
+            firstName: formData.get("signup_firstname"),
+            lastName: formData.get("signup_lastname"),
+            email: formData.get("signup_email"),
+            password: formData.get("signup_password"),
+            confirmPassword: formData.get("signup_confirm_password"),
+          }));
+          userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
+            ? navigate(-1)
+            : navigate("/checkout", { state: { customer: userInfo } });
         }
       });
     } else if (e.target.dataset.value === "login-form") {
       customersRecord.forEach((customer) => {
-        userInfo.userId = formData.get("login_email");
-        userInfo.password = formData.get("login_password");
+        let clientId = formData.get("login_email");
+        let clientPassword = formData.get("login_password");
         if (
-          customer.userId === userInfo.userId &&
-          customer.password === userInfo.password
+          customer.userId === clientId &&
+          customer.password === clientPassword
         ) {
-          customer = {
-            ...customer,
-            browsedItem: userInfo.browsedItem,
-            cartItems: userInfo.cartItems,
-            buyItems: userInfo.buyItems,
-          };
-          document.querySelector(".login").textContent = "Logout";
-          userInfo.cartItems || Object.keys(userInfo.cartItems).length > 0
-            ? navigate("/checkout", { state: { customer: customer } })
-            : navigate("/gallery");
-          loggedIn = true;
+          setUserInfo((prev) => ({
+            ...prev,
+            userId: clientId,
+            firstName: customer.firstName,
+            lastName: customer.lastName,
+            password: clientPassword,
+            email: customer.email,
+          }));
+          // customer = {
+          //   ...customer,
+          //   browsedItem: userInfo.browsedItem,
+          //   cartItems: userInfo.cartItems,
+          //   buyItems: userInfo.buyItems,
+          // };
+          // document.querySelector(".login").textContent = "Logout";
+          setLoggedIn(true);
+          // setCustomer(customer);
+          !userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
+            ? navigate(-1)
+            : navigate("/checkout", { state: { customer: userInfo } });
         } else {
           // if entered login credentials are incorrect this will trigger the animation and clear
           // the input fields and show the invalid message and will focus back on the
@@ -84,9 +106,6 @@ const Login = () => {
           });
           document.querySelector(".login-invalid-message").style.cssText =
             "visibility: visible; animation: shake 350ms ease-in-out";
-          // setTimeout(() => {
-          //   document.querySelector(".login-email-input").focus();
-          // }, 350);
         }
       });
     }

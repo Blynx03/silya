@@ -1,9 +1,8 @@
 .contact-container {
   position: absolute;
-  right: 0%;
+  right: 0;
   width: 100vw;
   height: 100%;
-  z-index: 10;
   overflow: hidden;
   z-index: 5;
   font-family: var(--jost);

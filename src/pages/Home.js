@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../css/home.css";
 import data from "../asset/data";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   let navigate = useNavigate();
+
+  useEffect(() => {
+    document.querySelector(".aside-container").style.visibility = "visible";
+  }, []);
+
   const handleClick = () => {
     navigate("/gallery");
   };

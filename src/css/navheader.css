@@ -50,8 +50,40 @@
 }
 
 .top-links:hover {
-  border-bottom: 1px solid var(--primary1);
+  /* border-bottom: 1px solid var(--primary1); */
+  text-decoration: underline;
   /* animation: show 1.5s ease-in; */
+}
+
+.nav-header-login-container {
+  font-family: var(--lato);
+  color: var(--accent1-2);
+  font-weight: 300;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login {
+  color: var(--login-done);
+}
+.login-greeting,
+.logout {
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.login-greeting {
+  white-space: nowrap;
+}
+
+.logout {
+  color: tomato;
+}
+
+.logout:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .cart-container {

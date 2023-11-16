@@ -1,13 +1,23 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import "../css/navheader.css";
 
 const NavHeader = () => {
   const clientContext = useContext(UserContext);
-  const setUserInfo = clientContext.setUserInfo;
+  const navigate = useNavigate();
+  let customer = clientContext.customer;
   const cartQuantity = clientContext.cartQuantity;
+  let loggedIn = clientContext.loggedIn;
+  let setLoggedIn = clientContext.setLoggedIn;
+  let userInfo = clientContext.userInfo;
   const loginHeader = document.querySelector(".login");
+
+  const handleLogout = () => {
+    // const saveCartAndBrowse = {browsedItems: }
+    setLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <div className="nav-container">
@@ -20,16 +30,20 @@ const NavHeader = () => {
       <Link to="/contact" className="top-links contact">
         Contact
       </Link>
-      {/* {loginHeader && loginHeader.textContent === "Logout" ? (
-        <>
-          {(loginHeader.textContent = "Login")}
-          {setUserInfo({})}
-        </>
-      ) : ( */}
-      <Link to="/login" className="top-links login">
-        Login
-      </Link>
-      {/* )} */}
+      <div className="nav-header-login-container">
+        {!loggedIn ? (
+          <Link to="/login" className="top-links login">
+            Login
+          </Link>
+        ) : (
+          <>
+            <div className="login-greeting">Hi {customer.firstName}! </div>
+            <div className="logout" onClick={() => handleLogout()}>
+              Logout
+            </div>
+          </>
+        )}
+      </div>
       <Link
         to={{
           pathname: "/checkout",

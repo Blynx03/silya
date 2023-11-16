@@ -6,6 +6,7 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Checkout from "../pages/Checkout";
 import Details from "../pages/Details";
+import Payment from "../pages/Payment";
 
 const SwitchNavHeader = () => {
   return (
@@ -16,6 +17,7 @@ const SwitchNavHeader = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/details" element={<Details />} />
+      <Route path="/payment" element={<Payment />} />
     </Routes>
   );
 };

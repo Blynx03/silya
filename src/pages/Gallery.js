@@ -67,8 +67,11 @@ const Gallery = () => {
     clientContext.setLastClicked(newItem);
     clientContext.setUserInfo(updatedUserInfo);
     navigate(`/details`);
-    // navigate("/products/details");
   };
+
+  useEffect(() => {
+    document.querySelector(".aside-container").style.visibility = "visible";
+  }, []);
 
   useEffect(() => {
     const chairId = location.hash;

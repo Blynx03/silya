@@ -9,26 +9,33 @@ import UserContext from "./context/UserContext";
 
 function App() {
   // let [history, setHistory] = useState([]);
-  let [lastClicked, setLastClicked] = useState({
+  const [lastClicked, setLastClicked] = useState({
     categoryNameIndex: 0,
     categoryName: "",
     chairNameIndex: 0,
     chairName: "",
   });
 
-  let [lastClickedDetails, setLastClickedDetails] = useState({});
-  let [itemsInCart, setItemsInCart] = useState(0);
-  let [cartQuantity, setCartQuantity] = useState(0);
-  let [deliveryOption, setDeliveryOption] = useState("deliver");
-  let [loggedIn, setLoggedIn] = useState(false);
-  let [userInfo, setUserInfo] = useState({});
+  const [lastClickedDetails, setLastClickedDetails] = useState({});
+  const [itemsInCart, setItemsInCart] = useState(0);
+  const [cartQuantity, setCartQuantity] = useState(0);
+  const [deliveryOption, setDeliveryOption] = useState("deliver");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("userHistory"))
+  );
+  const [subTotalPrice, setSubTotalPrice] = useState(0);
+
+  const [customer, setCustomer] = useState(userInfo);
 
   const [customersRecord, setCustomersRecord] = useState([
     {
       userId: "abc@abc.com",
       firstName: "abc",
+      lastName: "def",
       email: "abc@abc.com",
       password: "abc",
+      delivery_method: "",
       browsedItems: [
         {
           category: "Rocking Chair",
@@ -87,6 +94,7 @@ function App() {
       firstName: "Charlie",
       email: "cchan_03@yahoo.ca",
       password: "123",
+      delivery_method: "",
       browsedItems: [
         {
           category: "Rocking Chair",
@@ -159,8 +167,12 @@ function App() {
         setLoggedIn,
         customersRecord,
         setCustomersRecord,
+        customer,
+        setCustomer,
         deliveryOption,
         setDeliveryOption,
+        subTotalPrice,
+        setSubTotalPrice,
       }}
     >
       <div className="curtain">

@@ -1,18 +1,30 @@
 import React, { useEffect, useRef } from "react";
 import "../css/header.css";
-// import "../css/App.css";
+import data from "../asset/data";
 import NavHeader from "./NavHeader";
+import makeItProper from "./makeItProper";
 
 const Header = () => {
   const searchInputRef = useRef(null);
+  const searchLibrary = [];
+  const searchMatches = [];
 
-  const handleChange = (value) => {
-    console.log(value);
-  };
+  data.map((product) => {
+    searchLibrary.push(makeItProper(product.categories.toLowerCase()));
+    product.items.map((item) => {
+      searchLibrary.push(makeItProper(item.name.toLowerCase()));
+    });
+  });
 
   useEffect(() => {
     searchInputRef.current.focus();
   }, []);
+
+  const handleChange = (value) => {
+    const regex = new RegExp(value, "i");
+    searchMatches = searchLibrary.match(regex);
+    console.log(searchMatches);
+  };
 
   return (
     <section className="header-wrapper">
