@@ -375,7 +375,7 @@ const Payment = () => {
             </div>
           </div>
           <div className="payment-settings-container">
-            <div className="payment-settings-title">Payment Settings</div>
+            <div className="payment-settings-title">Payment Summary</div>
             <div className="payment-transaction-time-container">
               <div className="payment-transaction-container">
                 <div className="payment-transaction-date-title">

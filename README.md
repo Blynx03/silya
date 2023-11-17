@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Silya E-Commerce Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Silya is a complete front-end e-commerce website designed for buying chairs. The website includes various features such as a home page, product gallery, contact form, login/signup functionality, and a seamless checkout process.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Pages](#pages)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Responsive design for a seamless user experience across devices.
+- Navigation bar with links to home, gallery, contact, login, and cart.
+- Product categories in the navigation sidebar for easy access.
+- Search functionality with a dynamic search library for quick navigation.
+- Recently viewed items section to revisit previously browsed products.
+- Detailed product pages with images, price, inventory, description, specifications, and materials.
+- Add to cart functionality with a checkout button.
+- Checkout page for reviewing and managing cart items.
+- Choice of free delivery if the minimum limit price is met.
+- Option to choose delivery method (home delivery or store pick-up).
+- Payment page with options for credit card or PayPal payment.
+- Form for credit card details and summary of the transaction.
+- Smooth navigation between pages for a user-friendly experience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Pages
 
-### `npm test`
+### Home Page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Home Page](/silya-home.png)
+Landing page with a header, search bar, navigation bar, and featured content.
 
-### `npm run build`
+### Gallery Page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Gallery Page](/silya-gallery.png)
+Display of all available products categorized by chair type.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Contact Page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Contact Page](/silya-contact.png)
+Form to directly message the company and contact information.
 
-### `npm run eject`
+### Detail Page
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Detail Page](/silya-detail.png)
+Detailed information about a specific product with an option to add to cart.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Login/Signup Page
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Login/Signup Page](/silya-signup.png)
+User authentication page for logging in or creating a new account.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Checkout Page
 
-## Learn More
+![Checkout Page](/silya-cart.png)
+Review and manage cart items, choose delivery options, and proceed to payment.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Payment Page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Payment Page](/silya-payment.png)
+Form for credit card and delivery information. Transaction summary.
 
-### Code Splitting
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- HTML
+- CSS
+- JavaScript
+- React
 
-### Analyzing the Bundle Size
+## Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+To run the project locally, follow these steps:
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone the repository: `git clone [repository-url]`
+2. Navigate to the project directory: `cd silya-ecommerce`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm start`
