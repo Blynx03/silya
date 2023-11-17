@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/silya/static/css/main.0d68d829.css",
+    "main.js": "/silya/static/js/main.e952bbb4.js",
+    "index.html": "/silya/index.html",
+    "main.0d68d829.css.map": "/silya/static/css/main.0d68d829.css.map",
+    "main.e952bbb4.js.map": "/silya/static/js/main.e952bbb4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d68d829.css",
+    "static/js/main.e952bbb4.js"
+  ]
+}
