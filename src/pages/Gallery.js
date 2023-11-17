@@ -79,7 +79,12 @@ const Gallery = () => {
     if (chairId) {
       const chairElement = document.querySelector(chairId);
       if (chairElement) {
-        chairElement.scrollIntoView({ behavior: "smooth" });
+        chairElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+        chairElement.style.animation = "breathe 2000ms ease 1000ms";
       }
     }
   }, [location.hash]);

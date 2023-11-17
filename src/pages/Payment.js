@@ -29,7 +29,7 @@ const Payment = () => {
 
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
-  let delivery = subTotalPrice < 150 ? 50 : 0;
+  let delivery = subTotalPrice < 150 && subTotalPrice > 0 ? 50 : 0;
 
   let totalPrice = (
     subTotalPrice +
@@ -194,6 +194,7 @@ const Payment = () => {
                         placeholder="First Name"
                         data-value={customer.firstName}
                         onChange={handleInputChange}
+                        required
                       ></input>
                     </label>
 
@@ -209,6 +210,7 @@ const Payment = () => {
                         className="payment-form-credit-card-input form-input"
                         placeholder="Card Number"
                         onChange={handleInputChange}
+                        required
                         maxLength="19"
                       ></input>
                     </label>
@@ -225,6 +227,7 @@ const Payment = () => {
                         className="payment-form-address-input form-input"
                         placeholder="Address"
                         onChange={handleInputChange}
+                        required
                       ></input>
                     </label>
 
@@ -240,6 +243,7 @@ const Payment = () => {
                         className="payment-form-postalcode-input form-input"
                         placeholder="Postal Code"
                         onChange={handleInputChange}
+                        required
                       ></input>
                     </label>
                   </div>
@@ -258,6 +262,7 @@ const Payment = () => {
                         placeholder="Last Name"
                         data-value={customer.lastName}
                         onChange={handleInputChange}
+                        required
                       ></input>
                     </label>
 
@@ -274,6 +279,8 @@ const Payment = () => {
                           className="payment-form-expiration-input form-input"
                           placeholder="MM/YY"
                           onChange={handleInputChange}
+                          required
+                          maxLength="5"
                         ></input>
                       </label>
 
@@ -283,12 +290,14 @@ const Payment = () => {
                       >
                         CVV
                         <input
-                          type="number"
+                          type="text"
                           id="cvv"
                           name="payment_cvv"
                           className="payment-form-cvv-input form-input"
                           placeholder="CVV"
                           onChange={handleInputChange}
+                          maxLength="3"
+                          required
                         ></input>
                       </label>
                     </div>
@@ -305,6 +314,7 @@ const Payment = () => {
                         className="payment-form-state-input form-input"
                         placeholder="State"
                         onChange={handleInputChange}
+                        required
                       ></input>
                     </label>
 
@@ -321,6 +331,7 @@ const Payment = () => {
                         placeholder="Email"
                         data-value={customer.email}
                         onChange={handleInputChange}
+                        required
                       ></input>
                     </label>
                   </div>
@@ -392,7 +403,9 @@ const Payment = () => {
                     : "Pickup in Store"}
                 </div>
                 <div className="payment-delivery-value">
-                  {subTotalPrice > 150 || customer.delivery_method === "pickup"
+                  {subTotalPrice > 150 ||
+                  customer.delivery_method === "pickup" ||
+                  subTotalPrice <= 0
                     ? "FREE"
                     : "$50.00"}
                 </div>{" "}

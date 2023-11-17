@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/header.css";
 import data from "../asset/data";
 import NavHeader from "./NavHeader";
 import makeItProper from "./makeItProper";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [searchOutput, setSearchOutput] = useState([]);
+  const [searchString, setSearchString] = useState("");
   const searchInputRef = useRef(null);
   const searchLibrary = [];
-  const searchMatches = [];
+  const navigate = useNavigate();
 
   data.map((product) => {
     searchLibrary.push(makeItProper(product.categories.toLowerCase()));
@@ -21,9 +24,26 @@ const Header = () => {
   }, []);
 
   const handleChange = (value) => {
+    setSearchString(value);
     const regex = new RegExp(value, "i");
-    searchMatches = searchLibrary.match(regex);
-    console.log(searchMatches);
+    let searchResult = searchLibrary.filter((item) => regex.test(item));
+    setSearchOutput(searchResult);
+  };
+
+  const handleSearchClick = (e) => {
+    setSearchString("");
+    let clickedItem = e.target.dataset.value;
+    let lowerCaseItem = clickedItem.toLowerCase().split(" ").join("");
+    if (clickedItem.toLowerCase().includes("chair")) {
+      navigate(`/gallery#${lowerCaseItem}`);
+    } else {
+      navigate(`/gallery#${lowerCaseItem.toUpperCase()}`);
+    }
+  };
+
+  const handleSearchPhoto = (e) => {
+    console.log(searchString.toUpperCase());
+    // navigate('/details', state: {photo_category: , photo_item: })
   };
 
   return (
@@ -46,14 +66,29 @@ const Header = () => {
             type="text"
             className="search"
             placeholder="What chair are you looking for?"
+            value={searchString}
             ref={searchInputRef}
             onChange={(e) => {
               handleChange(e.target.value);
             }}
           ></input>
-          <div className="search-photo-icon">
+          <div className="search-photo-icon" onClick={handleSearchPhoto}>
             <span className="material-symbols-outlined">photo_camera</span>
           </div>
+          {searchOutput && searchString.length > 0 && (
+            <ul className="search-item-container">
+              {searchOutput.map((item, index) => (
+                <li
+                  key={index}
+                  className="search-item"
+                  data-value={item}
+                  onClick={handleSearchClick}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <nav className="nav-container">
           <NavHeader />

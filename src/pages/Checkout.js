@@ -20,10 +20,8 @@ const Checkout = () => {
 
   const navigate = useNavigate();
 
+  // CUSTOMER VARIABLE NOW CONTAINS ALL RELEVANT INFORMATION FROM THIS POINT FORWARD
   // const location = useLocation();
-
-  console.log(userInfo);
-  console.log(customer);
 
   // document.querySelector(".aside-container").style.visibility = "hidden";
 
@@ -32,33 +30,30 @@ const Checkout = () => {
       alert("No items in cart!");
       navigate("/");
     }
-  }, [userInfo, userInfo.cartItems.quantity]);
+  }, [customer, customer.cartItems.quantity]);
 
   useEffect(() => {
     let newQuantity = 0;
-    const newSubTotal = userInfo.cartItems.reduce(
+    const newSubTotal = customer.cartItems.reduce(
       (total, item) =>
         // prettier-ignore
         total + (item.price * item.quantity),
       0
     );
     setSubTotalPrice(newSubTotal);
-    userInfo.cartItems.forEach((prod) => {
+    customer.cartItems.forEach((prod) => {
       newQuantity += prod.quantity;
     });
     setCartQuantity(newQuantity);
-  }, [userInfo.cartItems, userInfo.cartItems.quantity]);
+  }, [customer.cartItems, customer.cartItems.quantity]);
 
   const handleDelivery = (e) => {
-    console.log(e.target.dataset.value);
-    console.log(deliveryOption);
     setDeliveryOption(e.target.dataset.value);
   };
 
-  console.log("delivery option outside function ", deliveryOption);
   const handleDelete = (item) => {
     let newQuantity = 0;
-    setUserInfo((prevCustomer) => {
+    setCustomer((prevCustomer) => {
       const updatedCustomerItems = prevCustomer.cartItems.filter(
         (cartItem) =>
           cartItem.category !== item.category && cartItem.name !== item.name
@@ -71,14 +66,19 @@ const Checkout = () => {
     setCartQuantity(newQuantity);
   };
 
+  console.log("userInfo = , ", userInfo);
+  console.log("customer = ", customer);
+
   const handleCheckout = () => {
-    let updatedCustomer = { ...userInfo, delivery_method: deliveryOption };
+    let updatedCustomer = { ...customer, delivery_method: deliveryOption };
     setCustomer(updatedCustomer);
     let updatedUserInfo = {
-      ...userInfo,
+      ...customer,
       password: "",
-      delivery_method: deliveryOption,
+      cartItems: [],
+      buyItems: [],
     };
+    console.log(updatedUserInfo);
     localStorage.setItem("userHistory", JSON.stringify(updatedUserInfo));
     navigate("/payment");
   };
@@ -137,7 +137,7 @@ const Checkout = () => {
                         name="checkout_quantity"
                         value={item.quantity}
                         onChange={(e) => {
-                          setUserInfo((prev) => {
+                          setCustomer((prev) => {
                             const updatedCartItems = prev.cartItems.map(
                               (cartItem) =>
                                 cartItem === item
@@ -218,7 +218,7 @@ const Checkout = () => {
               className="checkout-btn"
               onClick={handleCheckout}
             >
-              CHECKOUT
+              PROCEED TO CHECKOUT
             </button>
           </div>
         </div>
