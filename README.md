@@ -1,6 +1,6 @@
 # Silya E-Commerce Website
 
-Silya is a complete front-end e-commerce website designed for buying chairs. The website includes various features such as a home page, product gallery, contact form, login/signup functionality, and a seamless checkout process.
+Silya is a complete front-end E-commerce website designed for buying chairs. The website includes various features such as a home page, product gallery, contact form, login/signup functionality, and a seamless checkout process.
 
 ## Table of Contents
 
@@ -29,37 +29,37 @@ Silya is a complete front-end e-commerce website designed for buying chairs. The
 
 ### Home Page
 
-![Home Page](/silya-home.png)
+![Alt test](/silya-home.png)
 Landing page with a header, search bar, navigation bar, and featured content.
 
 ### Gallery Page
 
-![Gallery Page](/silya-gallery.png)
+![Alt test](/silya-gallery.png)
 Display of all available products categorized by chair type.
 
 ### Contact Page
 
-![Contact Page](/silya-contact.png)
+![Alt test](/silya-contact.png)
 Form to directly message the company and contact information.
 
 ### Detail Page
 
-![Detail Page](/silya-detail.png)
+![Alt test](/silya-detail.png)
 Detailed information about a specific product with an option to add to cart.
 
 ### Login/Signup Page
 
-![Login/Signup Page](/silya-signup.png)
+![Alt test](/silya-signup.png)
 User authentication page for logging in or creating a new account.
 
 ### Checkout Page
 
-![Checkout Page](/silya-cart.png)
+![Alt test](/silya-cart.png)
 Review and manage cart items, choose delivery options, and proceed to payment.
 
 ### Payment Page
 
-![Payment Page](/silya-payment.png)
+![Alt test](/silya-payment.png)
 Form for credit card and delivery information. Transaction summary.
 
 ## Technologies Used
@@ -73,7 +73,7 @@ Form for credit card and delivery information. Transaction summary.
 
 To run the project locally, follow these steps:
 
-1. Clone the repository: `git clone [repository-url]`
-2. Navigate to the project directory: `cd silya-ecommerce`
+1. Clone the repository: `git clone [https://github.com/Blynx03/silya]`
+2. Navigate to the project directory: `cd silya`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
