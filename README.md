@@ -39,7 +39,7 @@ Display of all available products categorized by chair type.
 
 ### Contact Page
 
-![Alt test](/silya-contact.png)
+![Alt test](../silya-contact.png)
 Form to directly message the company and contact information.
 
 ### Detail Page
