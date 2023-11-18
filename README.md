@@ -29,17 +29,17 @@ Silya is a complete front-end E-commerce website designed for buying chairs. The
 
 ### Home Page
 
-![Alt test](silya-home.png)
+![Alt test](src/silya-home.png)
 Landing page with a header, search bar, navigation bar, and featured content.
 
 ### Gallery Page
 
-![Alt test](./silya-gallery.png)
+![Alt test](src/silya-gallery.png)
 Display of all available products categorized by chair type.
 
 ### Contact Page
 
-![Alt test](../silya-contact.png)
+![Alt test](src/silya-contact.png)
 Form to directly message the company and contact information.
 
 ### Detail Page
@@ -49,17 +49,17 @@ Detailed information about a specific product with an option to add to cart.
 
 ### Login/Signup Page
 
-![Alt test](/src/silya-signup.png)
+![Alt test](src/silya-signup.png)
 User authentication page for logging in or creating a new account.
 
 ### Checkout Page
 
-![Alt test](./src/silya-cart.png)
+![Alt test](src/silya-cart.png)
 Review and manage cart items, choose delivery options, and proceed to payment.
 
 ### Payment Page
 
-![Alt test](../src/silya-payment.png)
+![Alt test](src/silya-payment.png)
 Form for credit card and delivery information. Transaction summary.
 
 ## Technologies Used
