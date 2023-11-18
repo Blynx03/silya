@@ -44,22 +44,22 @@ Form to directly message the company and contact information.
 
 ### Detail Page
 
-![Alt test](/silya-detail.png)
+![Alt test](src/silya-detail.png)
 Detailed information about a specific product with an option to add to cart.
 
 ### Login/Signup Page
 
-![Alt test](/silya-signup.png)
+![Alt test](/src/silya-signup.png)
 User authentication page for logging in or creating a new account.
 
 ### Checkout Page
 
-![Alt test](/silya-cart.png)
+![Alt test](./src/silya-cart.png)
 Review and manage cart items, choose delivery options, and proceed to payment.
 
 ### Payment Page
 
-![Alt test](/silya-payment.png)
+![Alt test](../src/silya-payment.png)
 Form for credit card and delivery information. Transaction summary.
 
 ## Technologies Used
