@@ -20,21 +20,21 @@ const Home = () => {
       <section className="image-container" onClick={handleClick}>
         <div className="single-image-container img1-container">
           <img
-            src="/images/front-page-images/img1.avif"
+            src="images/front-page-images/img1.avif"
             alt="conference chair"
             className="home-image home-image1"
           />
         </div>
         <div className="single-image-container img2-container">
           <img
-            src="/images/front-page-images/img2.avif"
+            src="./images/front-page-images/img2.avif"
             alt="conference chair"
             className="home-image home-image2"
           />
         </div>
         <div className="single-image-container img3-container">
           <img
-            src="/images/front-page-images/img3.avif"
+            src="../images/front-page-images/img3.avif"
             alt="arm chair"
             className="home-image home-image3"
           />
