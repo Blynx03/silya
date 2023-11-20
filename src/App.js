@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import NavSideLinks from "./components/NavSideLinks";
 import SwitchNavHeader from "./components/SwitchNavHeader";
 import UserContext from "./context/UserContext";
+import Home from "./pages/Home";
 
 function App() {
   // let [history, setHistory] = useState([]);
@@ -182,6 +183,7 @@ function App() {
         <article className="content-container">
           {/* <Home className="home-wrapper" /> */}
           <SwitchNavHeader />
+
           {/* <SwitchNavSide /> */}
         </article>
         <Footer className="footer-wrapper" />

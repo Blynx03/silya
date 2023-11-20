@@ -18,6 +18,7 @@ const SwitchNavHeader = () => {
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/details" element={<Details />} />
       <Route path="/payment" element={<Payment />} />
+      <Route index element={<Home />} />
     </Routes>
   );
 };

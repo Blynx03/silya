@@ -1,6 +1,6 @@
 # Silya E-Commerce Website
 
-Silya is a complete front-end E-commerce website designed for buying chairs. The website includes various features such as a home page, product gallery, contact form, login/signup functionality, and a seamless checkout process.
+Silya is a complete front-end e-commerce website designed for buying chairs. The website includes various features such as a home page, product gallery, contact form, login/signup functionality, and a seamless checkout process.
 
 ## Table of Contents
 
