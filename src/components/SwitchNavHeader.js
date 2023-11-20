@@ -12,11 +12,11 @@ const SwitchNavHeader = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/checkout" element={<Checkout />} />
       <Route path="/details" element={<Details />} />
+      <Route path="/checkout" element={<Checkout />} />
       <Route path="/payment" element={<Payment />} />
       <Route index element={<Home />} />
     </Routes>
