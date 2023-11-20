@@ -8,7 +8,6 @@ import "../css/gallery.css";
 // import { Link } from "react-router-dom";
 import rating from "../components/rating";
 import getImagePath from "../components/getImagePath";
-import { useUser } from "../hooks/UserHooks";
 
 const Gallery = () => {
   // const { userInfo, setUserInfo } = useUser();
@@ -27,10 +26,10 @@ const Gallery = () => {
     let price = "";
     let description = "";
 
-    data.map((categories, index) => {
+    data.forEach((categories, index) => {
       if (categories.categories === category) {
         categoryIndex = index;
-        categories.items.map((name, i) => {
+        categories.items.forEach((name, i) => {
           if (name.name === item) {
             clientContext.setLastClickedDetails(name.details);
             itemIndex = i;
@@ -158,8 +157,8 @@ const Gallery = () => {
                             className="details-btn"
                             onClick={() => {
                               reDirect({
-                                categoryIndex: index,
-                                itemIndex: ind,
+                                category: data[index].categories,
+                                item: data[index].items[ind].name,
                               });
                             }}
                           >

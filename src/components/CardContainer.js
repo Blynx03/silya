@@ -1,18 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import data from "../asset/data";
 import "../css/gallery.css";
 import rating from "./rating";
 import getImagePath from "./getImagePath";
-import { useUser } from "../hooks/UserHooks";
 
 const CardContainer = ({ details, ind, index, item }) => {
   console.log(details);
   console.log(item);
   const clientContext = useContext(UserContext);
   const navigate = useNavigate();
-  const location = useLocation();
 
   // taking indexes of category and chair name to store in history (browsed items) and
   const reDirect = ({ category, item }) => {

@@ -12,9 +12,9 @@ const Header = () => {
   const searchLibrary = [];
   const navigate = useNavigate();
 
-  data.map((product) => {
+  data.forEach((product) => {
     searchLibrary.push(makeItProper(product.categories.toLowerCase()));
-    product.items.map((item) => {
+    product.items.forEach((item) => {
       searchLibrary.push(makeItProper(item.name.toLowerCase()));
     });
   });
@@ -51,8 +51,8 @@ const Header = () => {
       <header className="header-container">
         <div className="logo-container">
           <img
-            src="/images/front-page-images/wingback-chair.png"
-            alt=""
+            src="/images/front-page/wingback-chair.png"
+            alt="chair logo"
             className="silya-img"
           />
           <div className="silya">SILYA</div>

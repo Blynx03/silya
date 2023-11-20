@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "../css/home.css";
-import data from "../asset/data";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -20,28 +19,28 @@ const Home = () => {
       <section className="image-container" onClick={handleClick}>
         <div className="single-image-container img1-container">
           <img
-            src="public/images/front-page/img1.avif"
+            src="/images/front-page/img1.avif"
             alt="conference chair"
             className="home-image home-image1"
           />
         </div>
         <div className="single-image-container img2-container">
           <img
-            src="/public/images/front-page/img2.avif"
+            src="/images/front-page/img2.avif"
             alt="conference chair"
             className="home-image home-image2"
           />
         </div>
         <div className="single-image-container img3-container">
           <img
-            src="./public/images/front-page/img3.avif"
+            src="/images/front-page/img3.avif"
             alt="arm chair"
             className="home-image home-image3"
           />
         </div>
         <div className="single-image-container img4-container">
           <img
-            src="../public/images/front-page/img4.avif"
+            src="/images/front-page/img4.avif"
             alt="office chair"
             className="home-image home-image4"
           />

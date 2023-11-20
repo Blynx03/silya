@@ -11,10 +11,6 @@ const Login = () => {
   const userInfo = clientContext.userInfo;
   const setUserInfo = clientContext.setUserInfo;
   const customersRecord = clientContext.customersRecord;
-  const setCustomersRecord = clientContext.setCustomersRecord;
-  const customer = clientContext.customer;
-  const setCustomer = clientContext.setCustomer;
-  let loggedIn = clientContext.loggedIn;
   let setLoggedIn = clientContext.setLoggedIn;
 
   const [formData, setFormData] = useState({
@@ -203,7 +199,7 @@ const Login = () => {
           </div>
         </div>
       )}
-      // {/* signup form */}
+      {/* signup form */}
       {!isLogin && (
         <div className="signup-wrapper">
           <div className="signup-title">Signup Form</div>

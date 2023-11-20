@@ -344,7 +344,7 @@ hr {
   width: 80%;
   padding: 5% 10% 15%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .payment-submit-button {

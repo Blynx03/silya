@@ -8,7 +8,7 @@ const getImagePath = (category, chairName) => {
   )
     .split(" ")
     .join("");
-  return `../images/${categoryLowerCase}/${newChairName}/images/`;
+  return `/images/${categoryLowerCase}/${newChairName}/images/`;
 };
 
 export default getImagePath;

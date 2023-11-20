@@ -5,7 +5,7 @@ const makeItProper = (value) => {
   if (temp.length <= 1) {
     return value.charAt(0).toUpperCase() + value.slice(1);
   } else {
-    temp.map((word) => {
+    temp.forEach((word) => {
       newWord.push(word.charAt(0).toUpperCase() + word.slice(1));
     });
     return newWord.join(" ");

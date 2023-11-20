@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import getImagePath from "../components/getImagePath";
 import "../css/checkout.css";
 import UserContext from "../context/UserContext";
@@ -14,7 +14,6 @@ const Checkout = () => {
   const setDeliveryOption = clientContext.setDeliveryOption;
   const setCartQuantity = clientContext.setCartQuantity;
   const userInfo = clientContext.userInfo;
-  const setUserInfo = clientContext.setUserInfo;
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
 
@@ -30,7 +29,7 @@ const Checkout = () => {
       alert("No items in cart!");
       navigate("/");
     }
-  }, [customer, customer.cartItems.quantity]);
+  }, [customer, navigate]);
 
   useEffect(() => {
     let newQuantity = 0;
@@ -45,7 +44,7 @@ const Checkout = () => {
       newQuantity += prod.quantity;
     });
     setCartQuantity(newQuantity);
-  }, [customer.cartItems, customer.cartItems.quantity]);
+  }, [customer.cartItems, setCartQuantity, setSubTotalPrice]);
 
   const handleDelivery = (e) => {
     setDeliveryOption(e.target.dataset.value);

@@ -12,20 +12,19 @@ const Payment = () => {
   const customersRecord = clientContext.customersRecord;
   const setCustomersRecord = clientContext.setCustomersRecord;
   const subTotalPrice = clientContext.subTotalPrice;
-  const [userRecord, setUserRecord] = useState();
   const [paymentType, setPaymentType] = useState("credit-card");
   let navigate = useNavigate();
-  const [userFormData, setUserFormData] = useState({
-    payment_firstname: "",
-    payment_lastname: "",
-    payment_email: "",
-    payment_credit_card_number: 0,
-    payment_expiration: "",
-    payment_cvv: 0,
-    payment_address: "",
-    payment_state: "",
-    payment_postalcode: "",
-  });
+  // const [userFormData, setUserFormData] = useState({
+  //   payment_firstname: "",
+  //   payment_lastname: "",
+  //   payment_email: "",
+  //   payment_credit_card_number: 0,
+  //   payment_expiration: "",
+  //   payment_cvv: 0,
+  //   payment_address: "",
+  //   payment_state: "",
+  //   payment_postalcode: "",
+  // });
 
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
@@ -45,7 +44,7 @@ const Payment = () => {
       alert("No item(s) in cart");
       navigate("/");
     }
-  }, [customer.cartItems]);
+  }, [customer.cartItems, navigate]);
 
   useEffect(() => {
     const updatedCustomersRecord = customersRecord.map((user) => {
@@ -54,15 +53,19 @@ const Payment = () => {
       }
       return user;
     });
-    setUserRecord(customer);
     setCustomersRecord(updatedCustomersRecord);
-  }, [userInfo.userId]);
+  }, [
+    userInfo.userId,
+    userInfo.cartItems,
+    customersRecord,
+    setCustomersRecord,
+  ]);
 
-  const handleInputChange = (event) => {
-    let inputValue = event.target.value.replace(/\D/g, "");
-    inputValue = inputValue.replace(/(\d{4})/g, "$1 ").trim();
-    // setCreditCardNumber(inputValue);
-  };
+  // const handleInputChange = (event) => {
+  //   let inputValue = event.target.value.replace(/\D/g, "");
+  //   inputValue = inputValue.replace(/(\d{4})/g, "$1 ").trim();
+  //   setCreditCardNumber(inputValue);
+  // };
 
   const handlePaymentType = (e) => {
     let paymentMethod = e.target.value;
@@ -193,7 +196,6 @@ const Payment = () => {
                         className="payment-form-firstname-input form-input"
                         placeholder="First Name"
                         data-value={customer.firstName}
-                        onChange={handleInputChange}
                         required
                       ></input>
                     </label>
@@ -209,7 +211,6 @@ const Payment = () => {
                         name="payment_credit_card_number"
                         className="payment-form-credit-card-input form-input"
                         placeholder="Card Number"
-                        onChange={handleInputChange}
                         required
                         maxLength="19"
                       ></input>
@@ -226,7 +227,6 @@ const Payment = () => {
                         name="payment_address"
                         className="payment-form-address-input form-input"
                         placeholder="Address"
-                        onChange={handleInputChange}
                         required
                       ></input>
                     </label>
@@ -242,7 +242,6 @@ const Payment = () => {
                         name="payment_postalcode"
                         className="payment-form-postalcode-input form-input"
                         placeholder="Postal Code"
-                        onChange={handleInputChange}
                         required
                       ></input>
                     </label>
@@ -261,7 +260,6 @@ const Payment = () => {
                         className="payment-form-lastname-input form-input"
                         placeholder="Last Name"
                         data-value={customer.lastName}
-                        onChange={handleInputChange}
                         required
                       ></input>
                     </label>
@@ -278,7 +276,6 @@ const Payment = () => {
                           name="payment_expiration"
                           className="payment-form-expiration-input form-input"
                           placeholder="MM/YY"
-                          onChange={handleInputChange}
                           required
                           maxLength="5"
                         ></input>
@@ -295,7 +292,6 @@ const Payment = () => {
                           name="payment_cvv"
                           className="payment-form-cvv-input form-input"
                           placeholder="CVV"
-                          onChange={handleInputChange}
                           maxLength="3"
                           required
                         ></input>
@@ -313,7 +309,6 @@ const Payment = () => {
                         name="payment_state"
                         className="payment-form-state-input form-input"
                         placeholder="State"
-                        onChange={handleInputChange}
                         required
                       ></input>
                     </label>
@@ -330,7 +325,6 @@ const Payment = () => {
                         className="payment-form-email-input form-input"
                         placeholder="Email"
                         data-value={customer.email}
-                        onChange={handleInputChange}
                         required
                       ></input>
                     </label>

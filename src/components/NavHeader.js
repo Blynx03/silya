@@ -10,13 +10,11 @@ const NavHeader = () => {
   const cartQuantity = clientContext.cartQuantity;
   let loggedIn = clientContext.loggedIn;
   let setLoggedIn = clientContext.setLoggedIn;
-  let userInfo = clientContext.userInfo;
-  const loginHeader = document.querySelector(".login");
 
   const handleLogout = () => {
     // const saveCartAndBrowse = {browsedItems: }
     setLoggedIn(false);
-    navigate("/");
+    navigate("/silya");
   };
 
   return (

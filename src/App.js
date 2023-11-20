@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./css/App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NavSideLinks from "./components/NavSideLinks";
-import SwitchNavSide from "./components/SwitchNavSide";
 import SwitchNavHeader from "./components/SwitchNavHeader";
 import UserContext from "./context/UserContext";
 

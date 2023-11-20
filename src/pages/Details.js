@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import UserContext from "../context/UserContext";
 import "../css/details.css";
 import "../css/gallery.css";
@@ -11,13 +11,14 @@ import { useNavigate } from "react-router-dom";
 const Details = () => {
   let [quantity, setQuantity] = useState(1);
   const clientContext = useContext(UserContext);
+  let refDetailMainImage = useRef(null);
+  let refDetailGalleryImage = useRef(null);
 
   const userInfo = clientContext.userInfo;
   const setUserInfo = clientContext.setUserInfo;
   const lastClicked = clientContext.lastClicked;
   const setLastClicked = clientContext.setLastClicked;
   const lastClickedDetails = clientContext.lastClickedDetails;
-  const setItemsInCart = clientContext.setItemsInCart;
   const cartQuantity = clientContext.cartQuantity;
   const setCartQuantity = clientContext.setCartQuantity;
   const deliveryOption = clientContext.deliveryOption;
@@ -27,8 +28,6 @@ const Details = () => {
 
   const navigate = useNavigate();
 
-  //  UPDATE LASTCLICKED ONCE CARDCONTAINER USERINFO.DETAILS ARE UPDATED
-
   let detailsImagePath = getImagePath(lastClicked.category, lastClicked.name);
 
   useEffect(() => {
@@ -36,7 +35,7 @@ const Details = () => {
   }, []);
 
   const changeMainImage = (newSrc) => {
-    document.querySelector(".details-main-image").setAttribute("src", newSrc);
+    refDetailMainImage.current.setAttribute("src", newSrc);
   };
 
   const handleAddToCart = () => {
@@ -63,7 +62,7 @@ const Details = () => {
 
   useEffect(() => {
     setCustomer(userInfo);
-  }, [userInfo]);
+  }, [userInfo, setCustomer]);
 
   const handleCheckOut = () => {
     setUserInfo((prev) => ({
@@ -91,12 +90,8 @@ const Details = () => {
   };
 
   const styleGallery = () => {
-    let mainImgSrc = document
-      .querySelector(".details-main-image")
-      .getAttribute("src");
-    let galleryImgSrc = document
-      .querySelector(".details-gallery-images")
-      .getAttribute("src");
+    let mainImgSrc = refDetailMainImage.current.getAttribute("src");
+    let galleryImgSrc = refDetailGalleryImage.current.getAttribute("src");
     if (mainImgSrc && galleryImgSrc) {
       if (mainImgSrc === galleryImgSrc) {
         return { border: "5px solid yellow" };
@@ -136,7 +131,9 @@ const Details = () => {
               className="details-main-image-container"
             >
               <img
+                ref={refDetailMainImage}
                 src={`${detailsImagePath}img1.avif`}
+                alt={`${lastClicked.name} main`}
                 className="details-main-image"
               />
             </div>
@@ -150,7 +147,9 @@ const Details = () => {
                     key={index}
                   >
                     <img
+                      ref={refDetailGalleryImage}
                       src={`${detailsImagePath}${image}`}
+                      alt={`${lastClicked.name} gallery`}
                       className="details-gallery-images"
                       onClick={() =>
                         changeMainImage(`${detailsImagePath}${image}`)

@@ -1,12 +1,10 @@
 import React, { useState, useContext } from "react";
-import { useEffect } from "react";
-import Header from "../components/Header";
 import UserContext from "../context/UserContext";
 import "../css/contact.css";
 
 const Contact = () => {
   const clientContext = useContext(UserContext);
-  let { userInfo, setUserInfo } = clientContext;
+  let setUserInfo = clientContext.setUserInfo;
 
   const [contactFormData, setContactFormData] = useState({
     firstname: "",

@@ -50,6 +50,7 @@ Detailed information about a specific product with an option to add to cart.
 ### Login/Signup Page
 
 ![Alt test](src/silya-signup.png)
+
 User authentication page for logging in or creating a new account.
 
 ### Checkout Page
