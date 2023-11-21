@@ -160,17 +160,17 @@ const Payment = () => {
                   </div>
                   <div className="payment-credit-card-right-container">
                     <img
-                      src="/images/visa-logo.png"
+                      src="images/visa-logo.png"
                       alt=""
                       className="credit-card-images visa-logo"
                     />
                     <img
-                      src="/images/mastercard-logo.png"
+                      src="images/mastercard-logo.png"
                       alt=""
                       className="credit-card-images mastercard-logo"
                     />
                     <img
-                      src="/images/amex-logo.png"
+                      src="images/amex-logo.png"
                       alt=""
                       className="credit-card-images amex-logo"
                     />
@@ -359,7 +359,7 @@ const Payment = () => {
                   </div>
                   <div className="payment-paypal-header-right-container">
                     <img
-                      src="/images/paypal-logo.png"
+                      src="images/paypal-logo.png"
                       alt=""
                       className="paypal-images paypal-logo"
                     />

@@ -51,7 +51,7 @@ const Header = () => {
       <header className="header-container">
         <div className="logo-container">
           <img
-            src="/images/front-page/wingback-chair.png"
+            src="images/front-page/wingback-chair.png"
             alt="chair logo"
             className="silya-img"
           />

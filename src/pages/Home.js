@@ -19,14 +19,14 @@ const Home = () => {
       <section className="image-container" onClick={handleClick}>
         <div className="single-image-container img1-container">
           <img
-            src="./images/front-page/img1.avif"
+            src="images/front-page/img1.avif"
             alt="conference chair"
             className="home-image home-image1"
           />
         </div>
         <div className="single-image-container img2-container">
           <img
-            src="../images/front-page/img2.avif"
+            src="images/front-page/img2.avif"
             alt="conference chair"
             className="home-image home-image2"
           />
@@ -40,14 +40,14 @@ const Home = () => {
         </div>
         <div className="single-image-container img4-container">
           <img
-            src="/public/images/front-page/img4.avif"
+            src="images/front-page/img4.avif"
             alt="office chair"
             className="home-image home-image4"
           />
         </div>
         <div className="single-image-container img5-container">
           <img
-            src="./public/images/front-page/img5.avif"
+            src="images/front-page/img5.avif"
             alt="wing chair"
             className="home-image home-image5"
           />
