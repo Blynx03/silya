@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/navsidelinks.css";
 import data from "../asset/data";
 
 const NavSideLinks = () => {
+  const [isProductListShowing, setIsProductListShowing] = useState(true);
   // const handleLinkclick = (e, item) => {
   //   e.preventDefault();
   //   const href = e.target.dataset.value;
@@ -11,14 +12,35 @@ const NavSideLinks = () => {
   // };
 
   const spreadProducts = () => {
-    document.querySelector(".chair").style.animation =
-      "spread 1200ms ease forwards";
+    setIsProductListShowing(!isProductListShowing);
+    if (isProductListShowing) {
+      document.querySelector(".sidebar-list-container").style.animation =
+        "decrease-max-height 1000ms ease forwards";
+      document.querySelector(".sidebar-container").style.animation =
+        "decrease-line-height 1000ms ease forwards";
+      document
+        .querySelectorAll(".list-chair")
+        .forEach((el) => (el.style.visibility = "hidden"));
+    } else {
+      document.querySelector(".sidebar-list-container").style.animation =
+        "increase-max-height 1000ms ease forwards";
+      document.querySelector(".sidebar-container").style.animation =
+        "increase-line-height 1000ms ease forwards";
+      document
+        .querySelectorAll(".list-chair")
+        .forEach((el) => (el.style.visibility = "visible"));
+    }
   };
 
   return (
     <section className="sidebar-container">
       <div className="list-title" onClick={spreadProducts}>
-        PRODUCTS<span className="material-symbols-outlined">expand_more</span>
+        PRODUCTS{" "}
+        {isProductListShowing ? (
+          <span className="material-symbols-outlined">expand_less</span>
+        ) : (
+          <span className="material-symbols-outlined">expand_more</span>
+        )}
       </div>
       <ul className="sidebar-list-container">
         {data.map((item, index) => {

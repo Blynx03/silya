@@ -14,17 +14,6 @@ const Payment = () => {
   const subTotalPrice = clientContext.subTotalPrice;
   const [paymentType, setPaymentType] = useState("credit-card");
   let navigate = useNavigate();
-  // const [userFormData, setUserFormData] = useState({
-  //   payment_firstname: "",
-  //   payment_lastname: "",
-  //   payment_email: "",
-  //   payment_credit_card_number: 0,
-  //   payment_expiration: "",
-  //   payment_cvv: 0,
-  //   payment_address: "",
-  //   payment_state: "",
-  //   payment_postalcode: "",
-  // });
 
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
@@ -54,18 +43,7 @@ const Payment = () => {
       return user;
     });
     setCustomersRecord(updatedCustomersRecord);
-  }, [
-    userInfo.userId,
-    userInfo.cartItems,
-    customersRecord,
-    setCustomersRecord,
-  ]);
-
-  // const handleInputChange = (event) => {
-  //   let inputValue = event.target.value.replace(/\D/g, "");
-  //   inputValue = inputValue.replace(/(\d{4})/g, "$1 ").trim();
-  //   setCreditCardNumber(inputValue);
-  // };
+  }, [userInfo.userId, userInfo.cartItems, setCustomersRecord]);
 
   const handlePaymentType = (e) => {
     let paymentMethod = e.target.value;

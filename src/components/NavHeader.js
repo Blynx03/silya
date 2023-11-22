@@ -7,6 +7,7 @@ const NavHeader = () => {
   const clientContext = useContext(UserContext);
   const navigate = useNavigate();
   let customer = clientContext.customer;
+  let userInfo = clientContext.userInfo;
   const cartQuantity = clientContext.cartQuantity;
   let loggedIn = clientContext.loggedIn;
   let setLoggedIn = clientContext.setLoggedIn;
@@ -14,7 +15,7 @@ const NavHeader = () => {
   const handleLogout = () => {
     // const saveCartAndBrowse = {browsedItems: }
     setLoggedIn(false);
-    navigate("/silya");
+    navigate("/");
   };
 
   return (
@@ -35,7 +36,7 @@ const NavHeader = () => {
           </Link>
         ) : (
           <>
-            <div className="login-greeting">Hi {customer.firstName}! </div>
+            <div className="login-greeting">Hi {userInfo.firstName}! </div>
             <div className="logout" onClick={() => handleLogout()}>
               Logout
             </div>

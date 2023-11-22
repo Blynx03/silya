@@ -13,7 +13,6 @@ const Home = () => {
     navigate("/gallery");
   };
 
-  // data.map((item) => console.log(item));
   return (
     <main className="home-container">
       <section className="image-container" onClick={handleClick}>

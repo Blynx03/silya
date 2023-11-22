@@ -11,7 +11,9 @@ const Login = () => {
   const userInfo = clientContext.userInfo;
   const setUserInfo = clientContext.setUserInfo;
   const customersRecord = clientContext.customersRecord;
+  const setCustomersRecord = clientContext.setCustomersRecord;
   let setLoggedIn = clientContext.setLoggedIn;
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     login_email: "",
@@ -22,17 +24,18 @@ const Login = () => {
     signup_password: "",
     signup_confirm_password: "",
   });
-  // if (document.querySelector(".login").textContent === "Logout") {
-  //   clientContext.setUserInfo({});
-  //   setLoggedIn(false);
-  //   document.querySelector(".login").textContent = "Login";
-  //   navigate("/");
-  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     if (e.target.dataset.value === "signup-form") {
+      if (
+        formData.get("signup_password") !==
+        formData.get("signup_confirm_password")
+      ) {
+        alert("Password and confirm password didn't match!");
+        return;
+      }
       setUserInfo((prev) => ({
         ...prev,
         userId: formData.get("signup_email"),
@@ -42,14 +45,14 @@ const Login = () => {
         password: formData.get("signup_password"),
         confirmPassword: formData.get("signup_confirm_password"),
       }));
+
+      // This will store the new customer in the customer record database
       customersRecord.forEach((customer) => {
         if (customer.userId === formData.get("signup_email")) {
           alert("Record already exists. Please login");
           setIsLogin(true);
         } else {
-          // document.querySelector(".login").textContent = "Logout";
           setLoggedIn(true);
-          // setCustomersRecord((prev) => [...prev, userInfo]);
           setUserInfo((prev) => ({
             ...prev,
             userId: formData.get("signup_email"),
@@ -59,52 +62,82 @@ const Login = () => {
             password: formData.get("signup_password"),
             confirmPassword: formData.get("signup_confirm_password"),
           }));
+          customersRecord.push({
+            userId: formData.get("signup_email"),
+            firstName: formData.get("signup_firstname"),
+            lastName: formData.get("signup_lastname"),
+            email: formData.get("signup_email"),
+            password: formData.get("signup_password"),
+            confirmPassword: formData.get("signup_confirm_password"),
+          });
+          alert(
+            "New Customer information is now supposedly to be stored in the database. Since this is just a front-end app, the new customer information will not be stored in the database."
+          );
           userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
             ? navigate(-1)
             : navigate("/checkout", { state: { customer: userInfo } });
         }
       });
-    } else if (e.target.dataset.value === "login-form") {
-      customersRecord.forEach((customer) => {
-        let clientId = formData.get("login_email");
-        let clientPassword = formData.get("login_password");
-        if (
-          customer.userId === clientId &&
-          customer.password === clientPassword
-        ) {
-          setUserInfo((prev) => ({
-            ...prev,
-            userId: clientId,
-            firstName: customer.firstName,
-            lastName: customer.lastName,
-            password: clientPassword,
-            email: customer.email,
-          }));
-          // customer = {
-          //   ...customer,
-          //   browsedItem: userInfo.browsedItem,
-          //   cartItems: userInfo.cartItems,
-          //   buyItems: userInfo.buyItems,
-          // };
-          // document.querySelector(".login").textContent = "Logout";
-          setLoggedIn(true);
-          // setCustomer(customer);
-          !userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
-            ? navigate(-1)
-            : navigate("/checkout", { state: { customer: userInfo } });
-        } else {
-          // if entered login credentials are incorrect this will trigger the animation and clear
-          // the input fields and show the invalid message and will focus back on the
-          // email address field
-          document.querySelectorAll(".login-input").forEach((input) => {
-            input.style.animation = "shake 350ms ease-in-out";
-            input.value = "";
-          });
-          document.querySelector(".login-invalid-message").style.cssText =
-            "visibility: visible; animation: shake 350ms ease-in-out";
-        }
-      });
+    } else {
+      if (e.target.dataset.value === "login-form") {
+        customersRecord.forEach((customer) => {
+          let clientId = formData.get("login_email");
+          let clientPassword = formData.get("login_password");
+          if (
+            customer.userId === clientId &&
+            customer.password === clientPassword
+          ) {
+            setUserInfo((prev) => ({
+              ...prev,
+              userId: clientId,
+              firstName: customer.firstName,
+              lastName: customer.lastName,
+              password: clientPassword,
+              email: customer.email,
+            }));
+
+            setLoggedIn(true);
+            !userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
+              ? navigate(-1)
+              : navigate("/checkout", { state: { customer: userInfo } });
+          } else {
+            // if entered login credentials are incorrect this will trigger the animation and clear
+            // the input fields and show the invalid message and will focus back on the
+            // email address field
+            document.querySelectorAll(".login-input").forEach((input) => {
+              input.style.animation = "shake 350ms ease-in-out";
+              input.value = "";
+            });
+            document.querySelector(".login-invalid-message").style.cssText =
+              "visibility: visible; animation: shake 350ms ease-in-out";
+          }
+        });
+      }
     }
+  };
+
+  const handleForgotPassword = () => {
+    document.querySelectorAll(".login-input").forEach((input) => {
+      input.setAttribute("readOnly", true);
+    });
+    setForgotPassword(true);
+  };
+
+  const handleForgotPasswordChange = (e) => {
+    const value = e.target.value;
+    if (e.target.value.length > 0) {
+      document.querySelector(".forgot-password-input").style.backgroundColor =
+        "rgb(250, 220, 220)";
+    } else {
+      document.querySelector(".forgot-password-input").style.backgroundColor =
+        "rgb(225, 255, 225)";
+    }
+  };
+
+  const handleSendConfirmation = (e) => {
+    alert("Link sent to your email.  Please check your email.");
+    console.log("send confirmation");
+    document.location.reload();
   };
 
   const handleChange = (e) => {
@@ -120,16 +153,43 @@ const Login = () => {
       setFormData({ ...formData, [name]: value });
   };
 
+  const handleSignupChange = (e) => {
+    const value = e.target.value;
+    customersRecord.map((customer) => {
+      if (customer.email === value) {
+        console.log("customer email = ", customer.email);
+        console.log("value = ", value);
+        alert("This email already exists! Please login instead.");
+        setIsLogin(true);
+      }
+    });
+  };
+
+  const handleConfirmPassword = (e) => {
+    const secondPassword = e.target.value;
+    if (
+      secondPassword === document.querySelector(".signup-password-input").value
+    ) {
+      document.querySelector(
+        ".signup-confirm-password-input"
+      ).style.backgroundColor = "rgb(225, 255, 225)";
+    } else {
+      document.querySelector(
+        ".signup-confirm-password-input"
+      ).style.backgroundColor = "rgb(250, 220, 220)";
+    }
+  };
+
   const handleForm = (value) => {
     setIsLogin(value === "login" ? true : value === "signup" ? false : true);
   };
 
-  // const handleSignUpNow = () => {
-  //   setIsLogin(false);
-  // };
+  console.log(customersRecord);
 
   return (
     <div className="login-signup-container">
+      <div className="login-design1"></div>
+      <div className="login-design2"></div>
       {/* login form */}
       {isLogin && (
         <div className="login-wrapper">
@@ -183,7 +243,36 @@ const Login = () => {
               required
             />
             {/* change the below forgot password to "a element" with href */}
-            <div className="login-forgot-password">Forgot password?</div>
+            <div
+              className="login-forgot-password"
+              onClick={handleForgotPassword}
+            >
+              Forgot password?
+            </div>
+            {forgotPassword && (
+              <div className="forgot-password-form">
+                <div className="forgot-password-info">
+                  A link will be sent to your email.
+                </div>
+                <input
+                  type="email"
+                  name="forgot-password-email"
+                  className="forgot-password-input"
+                  onChange={handleForgotPasswordChange}
+                  placeholder="Enter Email Address"
+                  required
+                  autoFocus
+                />
+
+                <button
+                  className="forgot-password-submit-button"
+                  type="button"
+                  onClick={handleSendConfirmation}
+                >
+                  Submit
+                </button>
+              </div>
+            )}
             <div className="login-invalid-message">
               Invalid email or password. Please try again
             </div>
@@ -235,9 +324,7 @@ const Login = () => {
               id="signup-firstname"
               placeholder="First Name"
               name="signup_firstname"
-              value={formData.signup_firstname}
               className="signup-firstname-input"
-              onChange={handleChange}
               required
             />
             <label htmlFor="signup_lastname" className="signup-lastname-label">
@@ -248,9 +335,7 @@ const Login = () => {
               id="signup-lastname"
               placeholder="Last Name"
               name="signup_lastname"
-              value={formData.signup_lastname}
               className="signup-lastname-input"
-              onChange={handleChange}
               required
             />
             <label htmlFor="signup_email" className="signup-email-label">
@@ -261,9 +346,9 @@ const Login = () => {
               id="signup-email"
               placeholder="Email Address"
               name="signup_email"
-              value={formData.signup_email}
+              // value={formData.signup_email}
               className="signup-email-input"
-              onChange={handleChange}
+              onChange={(e) => handleSignupChange(e)}
               required
             />
             <label htmlFor="signup_password" className="signup-password-label">
@@ -274,9 +359,7 @@ const Login = () => {
               id="signup-password"
               name="signup_password"
               placeholder="Password"
-              value={formData.signup_password}
               className="signup-password-input"
-              onChange={handleChange}
               required
             />
             <label
@@ -290,9 +373,8 @@ const Login = () => {
               id="signup-confirm-password"
               name="signup_confirm_password"
               placeholder="Confirm password"
-              value={formData.signup_confirm_password}
               className="signup-confirm-password-input"
-              onChange={handleChange}
+              onChange={(e) => handleConfirmPassword(e)}
               required
             />
             <button type="submit" className="signup-button">

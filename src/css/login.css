@@ -1,16 +1,51 @@
+@import "var.css";
+
 .login-signup-container {
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  border: 1px solid red;
   box-sizing: border-box;
   margin: 0;
+  right: 0;
   padding: 0 0 40px;
+  z-index: 5;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: absolute;
   font-family: var(--montserrat);
   background-color: var(--primary1);
+}
+
+.login-design1,
+.login-design2 {
+  position: absolute;
+  top: 60%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  box-shadow: 0 0 200px 10px black;
+  background: radial-gradient(
+    circle at 20%,
+    var(--accent1-1),
+    var(--accent1-1) 75%,
+    var(--accent1-2) 85%,
+    var(--primary1)
+  );
+  transform: rotate(-110deg);
+}
+
+.login-design2 {
+  top: -5%;
+  left: 60%;
+  transform: rotate(60deg);
+  background: radial-gradient(
+    circle at 10%,
+    var(--accent1-1),
+    var(--accent1-1) 80%,
+    var(--accent1-3) 85%,
+    var(--primary1)
+  );
 }
 
 .login-wrapper,
@@ -23,7 +58,8 @@
   align-items: center;
   padding: 2%;
   box-sizing: border-box;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: var(--accent1-3);
   border-radius: 20px;
   box-shadow: 0 0 20px 3px gray;
 }
@@ -105,7 +141,8 @@ label {
 }
 
 .login-form > input,
-.signup-form > input {
+.signup-form > input,
+.forgot-password-form > input {
   width: 70%;
   height: 3rem;
   border-radius: 10px;
@@ -115,7 +152,7 @@ label {
 }
 
 .login-email-input {
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .login-password-input {
@@ -127,7 +164,45 @@ label {
   font-size: 0.8rem;
   cursor: pointer;
   color: cornflowerblue;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+.forgot-password-form {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  box-shadow: 0 0 5px 1px gray;
+  border-radius: 10px;
+  background-color: #fff;
+  align-items: center;
+}
+
+.forgot-password-info {
+  color: steelblue;
+  font-size: 0.8rem;
+  padding: 2%;
+}
+.forgot-password-input {
+  width: 90% !important;
+  padding: 1% 5% !important;
+  height: 40px !important;
+  background: rgb(250, 220, 220);
+}
+
+.forgot-password-submit-button {
+  padding: 2% 6%;
+  margin: 7px;
+  border-radius: 5px;
+  border: none;
+  background-image: linear-gradient(
+    50deg,
+    var(--accent1-1) 0%,
+    var(--accent1-1) 60%,
+    var(--primary1) 100%
+  );
+  color: var(--primary1);
+  align-self: flex-end;
 }
 
 .login-invalid-message {
@@ -153,7 +228,7 @@ label {
 
 .login-button,
 .signup-button {
-  margin: 40px 0 0;
+  margin: 20px 0 0;
 }
 
 .not-a-member-container {

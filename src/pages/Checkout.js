@@ -16,6 +16,7 @@ const Checkout = () => {
   const userInfo = clientContext.userInfo;
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
+  const loggedIn = clientContext.loggedIn;
 
   const navigate = useNavigate();
 
@@ -28,6 +29,9 @@ const Checkout = () => {
     if (customer === "" || customer === null || customer === undefined) {
       alert("No items in cart!");
       navigate("/");
+    }
+    if (!loggedIn) {
+      navigate("/login");
     }
   }, [customer, navigate]);
 
@@ -65,9 +69,6 @@ const Checkout = () => {
     setCartQuantity(newQuantity);
   };
 
-  console.log("userInfo = , ", userInfo);
-  console.log("customer = ", customer);
-
   const handleCheckout = () => {
     let updatedCustomer = { ...customer, delivery_method: deliveryOption };
     setCustomer(updatedCustomer);
@@ -77,7 +78,6 @@ const Checkout = () => {
       cartItems: [],
       buyItems: [],
     };
-    console.log(updatedUserInfo);
     localStorage.setItem("userHistory", JSON.stringify(updatedUserInfo));
     navigate("/payment");
   };

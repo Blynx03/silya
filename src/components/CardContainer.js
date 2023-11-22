@@ -12,7 +12,7 @@ const CardContainer = ({ details, ind, index, item }) => {
   const clientContext = useContext(UserContext);
   const navigate = useNavigate();
 
-  // taking indexes of category and chair name to store in history (browsed items) and
+  // taking indexes of category and chair name to store in history (browsed items)
   const reDirect = ({ category, item }) => {
     console.log(category);
     console.log(item);
