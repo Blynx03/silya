@@ -12,7 +12,6 @@
   font-family: var(--lato);
   font-size: 0.85em;
   font-weight: 300;
-  height: 3%;
 }
 
 .material-symbols-outlined {
@@ -20,6 +19,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2em;
   color: var(--primary1);
+}
+
+.rocket-icon {
+  font-size: 1.2rem;
 }

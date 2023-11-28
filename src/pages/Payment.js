@@ -53,9 +53,7 @@ const Payment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
     const customerData = new FormData(e.target);
-    console.log(customerData);
     setCustomer((prev) => ({
       ...prev,
       paymentMethod: paymentType,
@@ -88,7 +86,6 @@ const Payment = () => {
     navigate("/");
   };
 
-  console.log("line 96 - customer = ", customer);
   return (
     <div className="payment-curtain">
       <div className="payment-container">
@@ -270,7 +267,7 @@ const Payment = () => {
                           name="payment_cvv"
                           className="payment-form-cvv-input form-input"
                           placeholder="CVV"
-                          maxLength="3"
+                          maxLength="4"
                           required
                         ></input>
                       </label>

@@ -12,6 +12,10 @@ import getImagePath from "../components/getImagePath";
 const Gallery = () => {
   // const { userInfo, setUserInfo } = useUser();
   const clientContext = useContext(UserContext);
+  const userInfo = clientContext.userInfo;
+  const setUserInfo = clientContext.setUserInfo;
+  const setLastClicked = clientContext.setLastClicked;
+  const setLastClickedDetails = clientContext.setLastClickedDetails;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,7 +35,7 @@ const Gallery = () => {
         categoryIndex = index;
         categories.items.forEach((name, i) => {
           if (name.name === item) {
-            clientContext.setLastClickedDetails(name.details);
+            setLastClickedDetails(name.details);
             itemIndex = i;
             stars = name.details.rating.stars;
             reviews = name.details.rating.reviews;
@@ -46,7 +50,7 @@ const Gallery = () => {
     });
 
     //  updating userInfo and lastClicked context
-    const updatedUserInfo = { ...clientContext.userInfo };
+    const updatedUserInfo = { ...userInfo };
     let newItem = {
       category: category,
       chairCategoryIndex: categoryIndex,
@@ -63,14 +67,10 @@ const Gallery = () => {
       updatedUserInfo.browsedItems && updatedUserInfo.browsedItems.length > 0
         ? [...updatedUserInfo.browsedItems, newItem]
         : [newItem];
-    clientContext.setLastClicked(newItem);
-    clientContext.setUserInfo(updatedUserInfo);
+    setLastClicked(newItem);
+    setUserInfo(updatedUserInfo);
     navigate(`/details`);
   };
-
-  useEffect(() => {
-    document.querySelector(".aside-container").style.visibility = "visible";
-  }, []);
 
   useEffect(() => {
     const chairId = location.hash;

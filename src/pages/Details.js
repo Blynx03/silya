@@ -13,6 +13,7 @@ const Details = () => {
   const clientContext = useContext(UserContext);
   let refDetailMainImage = useRef(null);
   let refDetailGalleryImage = useRef(null);
+  let refDetailCartButton = useRef(null);
 
   const userInfo = clientContext.userInfo;
   const setUserInfo = clientContext.setUserInfo;
@@ -28,37 +29,66 @@ const Details = () => {
 
   const navigate = useNavigate();
 
-  let detailsImagePath = getImagePath(lastClicked.category, lastClicked.name);
-
-  useEffect(() => {
-    document.querySelector(".aside-container").style.visibility = "visible";
-  }, []);
+  let detailsImagePath = getImagePath(
+    lastClicked.category,
+    lastClicked.name,
+    navigate
+  );
 
   const changeMainImage = (newSrc) => {
     refDetailMainImage.current.setAttribute("src", newSrc);
   };
 
+  const handleMainImageMouseOver = () => {};
+
   const handleAddToCart = () => {
-    if (lastClickedDetails.stock === 0) {
+    if (lastClicked.stock === 0) {
       alert("No stock available");
       return;
     }
-    let newItem = {
-      ...lastClicked,
-      quantity: quantity,
-      delivery_method: "deliver",
-    };
+    if (userInfo.cartItems && userInfo.cartItems.length > 0) {
+      const itemIndex = userInfo.cartItems.findIndex(
+        (item) =>
+          item.category === lastClicked.category &&
+          item.name === lastClicked.name
+      );
+      if (itemIndex !== -1) {
+        userInfo.cartItems[itemIndex].quantity += quantity;
+      } else {
+        const addQuantity = { ...lastClicked, quantity: quantity };
+        setUserInfo({
+          ...userInfo,
+          cartItems: [...userInfo.cartItems, addQuantity],
+        });
+      }
+    } else {
+      setUserInfo((prevUserInfo) => {
+        const updatedUserInfo = prevUserInfo || {};
+        const newCartItems = [{ ...lastClicked, quantity: quantity }];
 
-    userInfo.cartItems =
-      userInfo.cartItems && userInfo.cartItems.length > 0
-        ? [...userInfo.cartItems, newItem]
-        : [newItem];
+        return {
+          ...updatedUserInfo,
+          cartItems: newCartItems,
+        };
+      });
+    }
+
     setCartQuantity((prev) => prev + quantity);
 
     // storing userinfo to localstorage without the password
     let lastUserRecord = { ...userInfo, password: "" };
     localStorage.setItem("userHistory", JSON.stringify(lastUserRecord));
+    refDetailCartButton.current.classList.add("cart-animate");
+    setTimeout(() => {
+      refDetailCartButton.current.classList.remove("cart-animate");
+    }, 1200);
   };
+
+  console.log(userInfo);
+
+  // useEffect(() => {
+  //   setCustomer({ ...userInfo, cartItems: [] });
+  // }, []);
 
   useEffect(() => {
     setCustomer(userInfo);
@@ -69,16 +99,13 @@ const Details = () => {
       ...prev,
       buyItems: prev.cartItems,
     }));
+
     // setCartQuantity((prev) => prev + quantity);
     loggedIn ? navigate("/checkout") : navigate("/login");
   };
 
   const handleDeliveryOption = (e) => {
     setDeliveryOption(e.target.dataset.value);
-    userInfo.cartItems = {
-      ...userInfo.cartItems,
-      delivery_method: e.target.dataset.value,
-    };
   };
 
   const checkQuantity = () => {
@@ -135,6 +162,7 @@ const Details = () => {
                 src={`${detailsImagePath}img1.avif`}
                 alt={`${lastClicked.name} main`}
                 className="details-main-image"
+                onMouseOver={handleMainImageMouseOver}
               />
             </div>
             <div className="details-gallery-images-container">
@@ -151,6 +179,9 @@ const Details = () => {
                       src={`${detailsImagePath}${image}`}
                       alt={`${lastClicked.name} gallery`}
                       className="details-gallery-images"
+                      onMouseOver={() =>
+                        changeMainImage(`${detailsImagePath}${image}`)
+                      }
                       onClick={() =>
                         changeMainImage(`${detailsImagePath}${image}`)
                       }
@@ -207,7 +238,8 @@ const Details = () => {
                             <img
                               src={`${getImagePath(
                                 item.category,
-                                item.name
+                                item.name,
+                                navigate
                               )}img1.avif`}
                               alt={`lovely ${item.name} chair`}
                               className={`card-image`}
@@ -276,19 +308,21 @@ const Details = () => {
         <div className="details-buy-cart-container">
           <div className="details-on-sale-price-container">
             {lastClicked.onsale && (
-              <div className="details-on-sale">ON-SALE</div>
+              <div className="details-on-sale">
+                <h4>ON-SALE</h4>
+              </div>
             )}
             <div className="details-price">
-              ${lastClickedDetails.price.toFixed(2)}
+              ${lastClicked.price.toFixed(2)}
               <span className="each">each</span>
             </div>
             <div className="details-stock">
               Stock:{" "}
-              {lastClickedDetails.stock === 0
+              {lastClicked.stock === 0
                 ? "No stock available"
-                : ` ${lastClickedDetails.stock}`}
+                : ` ${lastClicked.stock}`}
               <div className="reached-max">
-                {lastClickedDetails.stock === quantity
+                {lastClicked.stock === quantity
                   ? " reached max quantity in stock"
                   : ""}
               </div>
@@ -303,9 +337,7 @@ const Details = () => {
                   className="details-decrease-quantity-button"
                   onClick={() =>
                     setQuantity((prev) =>
-                      prev === 0 || lastClickedDetails.stock === 0
-                        ? 0
-                        : prev - 1
+                      prev === 0 || lastClicked.stock === 0 ? 0 : prev - 1
                     )
                   }
                 >
@@ -318,7 +350,7 @@ const Details = () => {
                   value={checkQuantity()}
                   onChange={(e) => {
                     const newValue = parseInt(e.target.value);
-                    if (newValue > 0 && newValue <= lastClickedDetails.stock) {
+                    if (newValue > 0 && newValue <= lastClicked.stock) {
                       setQuantity(newValue);
                     }
                   }}
@@ -327,7 +359,7 @@ const Details = () => {
                   className="details-increase-quantity-button"
                   onClick={() =>
                     setQuantity((prev) =>
-                      prev === lastClickedDetails.stock ? prev : prev + 1
+                      prev === lastClicked.stock ? prev : prev + 1
                     )
                   }
                 >
@@ -359,8 +391,9 @@ const Details = () => {
                 </label>
               </div>
               <div className="details-add-buy-btn-container">
-                {/* IF ADD TO CARD IS CLICKED ADD ANIMATION OR INFO THAT THE ITEM IS ADDED IN THE CART */}
+                {/* IF ADD TO CART IS CLICKED ADD ANIMATION OR INFO THAT THE ITEM IS ADDED IN THE CART */}
                 <button
+                  ref={refDetailCartButton}
                   type="button"
                   className="details-add-btn details-cart-btn"
                   onClick={handleAddToCart}

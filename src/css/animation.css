@@ -195,3 +195,23 @@
   100% {
   }
 }
+
+@media (max-width: 890px) {
+  @keyframes increase-line-height {
+    0% {
+      line-height: 0px;
+    }
+    100% {
+      line-height: 35px;
+    }
+  }
+
+  @keyframes decrease-line-height {
+    0% {
+      line-height: 35px;
+    }
+    100% {
+      line-height: 0px;
+    }
+  }
+}

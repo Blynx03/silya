@@ -22,7 +22,9 @@ function App() {
   const [deliveryOption, setDeliveryOption] = useState("deliver");
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("userHistory"))
+    localStorage.getItem("userHistory")
+      ? JSON.parse(localStorage.getItem("useHistory"))
+      : null
   );
   const [subTotalPrice, setSubTotalPrice] = useState(0);
 

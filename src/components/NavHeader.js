@@ -36,7 +36,9 @@ const NavHeader = () => {
           </Link>
         ) : (
           <>
-            <div className="login-greeting">Hi {userInfo.firstName}! </div>
+            <div className="login-greeting">
+              Hi {userInfo.firstName.toUpperCase()}!{" "}
+            </div>
             <div className="logout" onClick={() => handleLogout()}>
               Logout
             </div>

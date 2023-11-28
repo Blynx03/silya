@@ -1,6 +1,10 @@
 // this function requires category and name of chair
-
 const getImagePath = (category, chairName) => {
+  if (!category || !chairName) {
+    window.history.back();
+    console.log("it is undefined");
+  }
+
   let categoryLowerCase = category.split(" ").join("").toLowerCase();
   let newChairName = (
     chairName.toLowerCase().charAt(0).toUpperCase() +

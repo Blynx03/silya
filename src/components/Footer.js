@@ -5,7 +5,9 @@ const Footer = () => {
   return (
     <div className="footer-container">
       Copyright {new Date().getFullYear()} : The Dreamer
-      <span className="material-symbols-outlined">rocket_launch</span>
+      <span className="material-symbols-outlined rocket-icon">
+        rocket_launch
+      </span>
     </div>
   );
 };

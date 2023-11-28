@@ -97,7 +97,9 @@ const Login = () => {
             }));
 
             setLoggedIn(true);
-            !userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
+            !userInfo.cartItems ||
+            !userInfo ||
+            Object.keys(userInfo.cartItems).length <= 0
               ? navigate(-1)
               : navigate("/checkout", { state: { customer: userInfo } });
           } else {
@@ -183,8 +185,6 @@ const Login = () => {
   const handleForm = (value) => {
     setIsLogin(value === "login" ? true : value === "signup" ? false : true);
   };
-
-  console.log(customersRecord);
 
   return (
     <div className="login-signup-container">

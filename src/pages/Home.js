@@ -51,7 +51,7 @@ const Home = () => {
             className="home-image home-image5"
           />
         </div>
-        <div className="content-description">
+        <div className="content-description-container">
           <em className="quote1">
             "The Seat for Every <strong> Perfect Moment</strong>"
           </em>

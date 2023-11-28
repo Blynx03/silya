@@ -14,6 +14,7 @@ const Checkout = () => {
   const setDeliveryOption = clientContext.setDeliveryOption;
   const setCartQuantity = clientContext.setCartQuantity;
   const userInfo = clientContext.userInfo;
+  const setUserInfo = clientContext.setUserInfo;
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
   const loggedIn = clientContext.loggedIn;
@@ -24,6 +25,12 @@ const Checkout = () => {
   // const location = useLocation();
 
   // document.querySelector(".aside-container").style.visibility = "hidden";
+
+  useEffect(() => {
+    if (userInfo.cartItems.length > 0) {
+      setCustomer({ ...customer, cartItems: userInfo.cartItems });
+    }
+  }, []);
 
   useEffect(() => {
     if (customer === "" || customer === null || customer === undefined) {
