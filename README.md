@@ -11,7 +11,6 @@ Silya is a complete front-end e-commerce website designed for buying chairs. The
 
 ## Features
 
-- Responsive design for a seamless user experience across devices.
 - Navigation bar with links to home, gallery, contact, login, and cart.
 - Product categories in the navigation sidebar for easy access.
 - Search functionality with a dynamic search library for quick navigation.
@@ -78,3 +77,8 @@ To run the project locally, follow these steps:
 2. Navigate to the project directory: `cd silya`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
+5. Use abc@abc.com for the email and "abc" for the password.
+
+## On Going
+
+- Responsive design for a seamless user experience across devices.
