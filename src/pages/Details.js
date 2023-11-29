@@ -139,9 +139,7 @@ const Details = () => {
               </div>
             </div>
             <div className="details-rating-container">
-              <div className="details-star-container">
-                {rating(lastClicked.rating.stars)}
-              </div>
+              {rating("details", lastClicked.rating.stars)}
               <div className="details-reviews">
                 ({lastClicked.rating.reviews})
               </div>

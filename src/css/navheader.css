@@ -38,6 +38,7 @@
 }
 .login {
   color: var(--login-done);
+  font-weight: normal;
 }
 .login-greeting,
 .logout {
@@ -50,7 +51,9 @@
 }
 
 .logout {
-  color: tomato;
+  text-align: center;
+  color: gold;
+  font-weight: normal;
 }
 
 .logout:hover {
@@ -74,17 +77,21 @@
 
 .quantity-in-cart {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 14px;
-  height: 14px;
+  top: -2px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
   font-size: 0.7rem;
-  padding: 0.1rem;
   background: tomato;
-  border-radius: 10px;
+  border-radius: 9px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+
+.cart-quantity {
+  margin: 0;
 }
 
 @media (max-width: 1220px) {

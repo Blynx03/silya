@@ -56,7 +56,9 @@ const NavHeader = () => {
           <span className="cart-icon material-symbols-outlined">
             shopping_cart
           </span>
-          <div className="quantity-in-cart">{cartQuantity}</div>
+          <div className="quantity-in-cart">
+            <h5 className="cart-quantity">{cartQuantity}</h5>
+          </div>
         </div>
       </Link>
     </div>

@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   background: hsla(0, 0%, 0%, 0.1);
-  padding: 3% 2%;
+  padding: 0 2%;
   font-family: var(--lato);
   box-sizing: border-box;
   overflow: scroll;

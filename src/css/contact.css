@@ -33,8 +33,7 @@
   display: flex;
   z-index: 20;
   color: black;
-  padding: 0 10%;
-  box-sizing: border-box;
+  padding: 0 10% 9%;
 }
 
 .user-information-form {
@@ -84,18 +83,19 @@
 }
 
 .contact-information-container {
+  position: relative;
   width: 50%;
   padding: 2%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   text-align: center;
-  gap: 45px;
+  gap: 6%;
 }
 
 .contact-information-container span {
-  padding-bottom: 22px;
-  font-size: 2rem;
+  padding-bottom: 5%;
+  font-size: 1.8rem;
   color: var(--accent1-4);
 }
 
@@ -111,5 +111,5 @@
 .contact-phone-title,
 .contact-hours-title,
 .contact-support-title {
-  padding-bottom: 9px;
+  padding-bottom: 1.3%;
 }

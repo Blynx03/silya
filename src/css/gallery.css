@@ -1,12 +1,30 @@
 @import "animation.css";
 
 .gallery-wrapper {
+  position: absolute;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.gallery-filter-container {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  font-family: var(--montserrat);
+  font-size: 1.2rem;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  z-index: 2;
+  background-color: hsla(0, 0%, 0%, 0.6);
+}
+
+.gallery-filter-title {
+  font-size: 0.9rem;
 }
 
 .gallery-items-container {
@@ -112,8 +130,9 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 28%;
+  height: 29%;
   background-color: hsla(0, 0%, 0%, 0.2);
+
   /* position: relative; */
 }
 
@@ -133,22 +152,20 @@
   gap: 8px;
 }
 
-.star-container {
-  width: 100%;
-  height: 50%;
+.gallery-star-container {
+  padding: 0.25rem 0.5rem;
+  gap: 3px;
   /* background: var(--accent1-1); */
   background-color: hsla(0, 0%, 0%, 0.5);
   display: flex;
-  padding: 0.25rem;
   border-radius: 6px;
   justify-content: space-evenly;
   box-shadow: 0 0px 6px 2px black;
 }
 
-.stars img {
-  width: 12px;
-  height: 12px;
-  filter: blur(0px);
+.gallery-star-image {
+  width: 14px;
+  height: 14px;
 }
 
 .reviews {
@@ -219,7 +236,7 @@
   padding: 5px 16px;
   background: var(--accent1-1);
   color: var(--primary1);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   border: none;
   border-radius: 10px;
@@ -232,6 +249,7 @@
   transform: scale(1.05);
 }
 
-.right-arrow {
+.gallery-right-arrow {
+  font-size: 0.9rem;
   color: var(--primary1);
 }
