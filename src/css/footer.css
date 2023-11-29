@@ -12,6 +12,7 @@
   font-family: var(--lato);
   font-size: 0.85em;
   font-weight: 300;
+  z-index: 10;
 }
 
 .material-symbols-outlined {

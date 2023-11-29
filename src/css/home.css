@@ -19,7 +19,7 @@
   height: 100%;
   display: grid;
   padding: 2%;
-  grid-template-columns: repeat(2, 23%) 27% 22%;
+  grid-template-columns: repeat(2, 23%) 27% 23%;
   grid-template-rows: 39% 19% calc(100% - 58% - 2.5rem);
   grid-template-areas:
     "img1 img1 img5 desc"
@@ -140,6 +140,24 @@ strong {
   position: absolute;
   opacity: 0;
   animation: show 2s linear 6.5s forwards, expand 2s linear 6.5s forwards;
+}
+
+@media (max-width: 1220px) {
+  .image-container {
+    overflow: hidden;
+    position: absolute;
+    grid-template-columns: repeat(2, 23%) 25% 22%;
+    top: 0;
+    left: 0;
+  }
+
+  .content-description-container {
+    font-size: 3.8vw;
+  }
+
+  strong {
+    font-size: 4vw;
+  }
 }
 
 @media (max-width: 890px) {

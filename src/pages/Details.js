@@ -84,12 +84,6 @@ const Details = () => {
     }, 1200);
   };
 
-  console.log(userInfo);
-
-  // useEffect(() => {
-  //   setCustomer({ ...userInfo, cartItems: [] });
-  // }, []);
-
   useEffect(() => {
     setCustomer(userInfo);
   }, [userInfo, setCustomer]);

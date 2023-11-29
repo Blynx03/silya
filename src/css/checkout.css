@@ -215,3 +215,59 @@
   transform: scale(1.05);
   cursor: pointer;
 }
+
+@media (max-width: 1220px) {
+  .cart-checkout-container {
+    justify-content: space-between;
+  }
+
+  .cart-description-price {
+    font-size: 0.95rem;
+  }
+
+  .cart-description-delete {
+    font-size: 0.8rem;
+  }
+  .checkout-wrapper {
+    width: 200px;
+    min-width: 170px;
+    height: 22rem;
+  }
+
+  .checkout-box {
+    gap: 24px;
+  }
+
+  .delivery-message {
+    font-size: 0.8rem;
+    color: tomato;
+  }
+
+  .subtotal-title-price-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .subtotal-title {
+    font-size: 0.85rem;
+  }
+
+  .checkout-delivery-option-container {
+    gap: 15px;
+    padding: 5%;
+  }
+
+  .checkout-delivery-option-container label {
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
+
+  .checkout-btn {
+    width: 70%;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    padding: 1%;
+    height: 40px;
+    color: lawngreen;
+  }
+}

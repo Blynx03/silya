@@ -7,13 +7,14 @@ const NavHeader = () => {
   const clientContext = useContext(UserContext);
   const navigate = useNavigate();
   let customer = clientContext.customer;
-  let userInfo = clientContext.userInfo;
+  const userInfo = clientContext.userInfo;
   const cartQuantity = clientContext.cartQuantity;
-  let loggedIn = clientContext.loggedIn;
-  let setLoggedIn = clientContext.setLoggedIn;
+  const loggedIn = clientContext.loggedIn;
+  const setLoggedIn = clientContext.setLoggedIn;
 
   const handleLogout = () => {
     // const saveCartAndBrowse = {browsedItems: }
+    localStorage.setItem("userHistory", JSON.stringify(userInfo));
     setLoggedIn(false);
     navigate("/");
   };

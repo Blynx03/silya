@@ -97,6 +97,7 @@ const Login = () => {
             }));
 
             setLoggedIn(true);
+            console.log(userInfo);
             !userInfo.cartItems ||
             !userInfo ||
             Object.keys(userInfo.cartItems).length <= 0

@@ -196,7 +196,7 @@
   }
 }
 
-@media (max-width: 890px) {
+@media (max-width: 1220px) {
   @keyframes increase-line-height {
     0% {
       line-height: 0px;

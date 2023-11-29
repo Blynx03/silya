@@ -21,11 +21,15 @@ function App() {
   const [cartQuantity, setCartQuantity] = useState(0);
   const [deliveryOption, setDeliveryOption] = useState("deliver");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState(
-    localStorage.getItem("userHistory")
-      ? JSON.parse(localStorage.getItem("useHistory"))
-      : null
-  );
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedData = localStorage.getItem("userHistory");
+    try {
+      return storedData ? JSON.parse(storedData) : {};
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return {};
+    }
+  });
   const [subTotalPrice, setSubTotalPrice] = useState(0);
 
   const [customer, setCustomer] = useState(userInfo);
@@ -179,15 +183,17 @@ function App() {
     >
       <div className="curtain">
         <Header className="header-wrapper" />
-        <aside className="aside-container">
-          <NavSideLinks />
-        </aside>
-        <article className="content-container">
-          {/* <Home className="home-wrapper" /> */}
-          <SwitchNavHeader />
+        <div className="aside-content-container">
+          <aside className="aside-container">
+            <NavSideLinks />
+          </aside>
+          <article className="content-container">
+            {/* <Home className="home-wrapper" /> */}
+            <SwitchNavHeader />
 
-          {/* <SwitchNavSide /> */}
-        </article>
+            {/* <SwitchNavSide /> */}
+          </article>
+        </div>
         <Footer className="footer-wrapper" />
       </div>
     </UserContext.Provider>

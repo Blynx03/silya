@@ -1,7 +1,7 @@
 @import "animation.css";
 
 .gallery-wrapper {
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -13,14 +13,14 @@
 .gallery-filter-container {
   position: absolute;
   right: 30px;
-  top: 10px;
+  top: 5rem;
   font-family: var(--montserrat);
   font-size: 1.2rem;
   color: #fff;
   padding: 10px 20px;
   border-radius: 10px;
   z-index: 2;
-  background-color: var(--accent1-1);
+  background-color: rgba(67, 68, 51, 0.8);
   border: 3px solid var(--primary1);
   box-shadow: 0 0 4px 5px gray;
 }
@@ -35,6 +35,7 @@
   border-radius: 5px;
   background-color: var(--accent1-2);
 }
+
 .gallery-items-container {
   display: flex;
   flex-direction: column;
@@ -260,4 +261,20 @@
 .gallery-right-arrow {
   font-size: 0.9rem;
   color: var(--primary1);
+}
+
+@media (max-width: 1220px) {
+  .gallery-filter-container {
+    padding: 5px 8px;
+    width: 140px;
+  }
+
+  .gallery-filter-title {
+    font-size: 0.8rem;
+  }
+
+  #filter-chair {
+    font-size: 0.7rem;
+    width: 100%;
+  }
 }
