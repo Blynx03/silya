@@ -19,9 +19,11 @@ const Gallery = () => {
   let sortedOnSaleData = [];
   let sortedLowPriceData = [];
   let sortedHighPriceData = [];
-  let alphabeticalData = [];
+  let sortedReviewData = [];
+  let alphaAZData = [];
+  let alphaZAData = [];
   const [filteredData, setFilteredData] = useState(data);
-  const copiedData = [...data];
+  const copiedData = JSON.parse(JSON.stringify(data));
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -96,12 +98,24 @@ const Gallery = () => {
   }, [location.hash]);
 
   useEffect(() => {
-    // sort alphabetically
-    alphabeticalData = copiedData.map((item) => {
-      let tempAlphaSort = item.items.sort((prev, cur) => {
+    // sort A-Z
+    alphaAZData = copiedData.map((item) => {
+      let tempAlphaSort = item.items.slice().sort((prev, cur) => {
         const prevValue = prev.name.toLowerCase();
         const curValue = cur.name.toLowerCase();
         return prevValue.localeCompare(curValue);
+      });
+      return {
+        categories: item.categories,
+        items: tempAlphaSort,
+      };
+    });
+    // sort Z-A
+    alphaZAData = copiedData.map((item) => {
+      let tempAlphaSort = item.items.slice().sort((prev, cur) => {
+        const prevValue = prev.name.toLowerCase();
+        const curValue = cur.name.toLowerCase();
+        return curValue.localeCompare(prevValue);
       });
       return {
         categories: item.categories,
@@ -122,9 +136,21 @@ const Gallery = () => {
       };
     });
 
+    // sort by customer review
+    sortedReviewData = copiedData.map((item) => {
+      let tempReviewSort = item.items.slice().sort((prev, cur) => {
+        const prevValue = prev.details.rating.reviews;
+        const curValue = cur.details.rating.reviews;
+        return curValue - prevValue;
+      });
+      return {
+        categories: item.categories,
+        items: tempReviewSort,
+      };
+    });
     // sort by price - low-to-high and high-to-low
     sortedLowPriceData = copiedData.map((item) => {
-      let tempLowItemSort = item.items.sort((prev, cur) => {
+      let tempLowItemSort = item.items.slice().sort((prev, cur) => {
         const prevValue = parseFloat(prev.details.price);
         const curValue = parseFloat(cur.details.price);
         return prevValue - curValue;
@@ -137,7 +163,7 @@ const Gallery = () => {
 
     // sort by price - high to low
     sortedHighPriceData = copiedData.map((item) => {
-      let tempHighItemSort = item.items.sort((prev, cur) => {
+      let tempHighItemSort = item.items.slice().sort((prev, cur) => {
         const prevValue = parseFloat(prev.details.price);
         const curValue = parseFloat(cur.details.price);
         return curValue - prevValue;
@@ -147,13 +173,7 @@ const Gallery = () => {
         items: tempHighItemSort,
       };
     });
-
-    console.log(copiedData);
-    console.log(alphabeticalData);
-    console.log(sortedOnSaleData);
-    console.log(sortedLowPriceData);
-    console.log(sortedHighPriceData);
-  }, []);
+  }, [filteredData]);
 
   const handleFilter = (e) => {
     let chosenFilter = e.target.value;
@@ -161,24 +181,24 @@ const Gallery = () => {
     switch (chosenFilter) {
       case "all":
         setFilteredData(data);
-        console.log(chosenFilter, " value is = " + data);
         break;
-      case "alphabetical":
-        setFilteredData(alphabeticalData);
-        console.log(chosenFilter, " value is = ");
-        console.log(alphabeticalData);
+      case "alpha-az":
+        setFilteredData(alphaAZData);
+        break;
+      case "alpha-za":
+        setFilteredData(alphaZAData);
         break;
       case "sort-sale":
         setFilteredData(sortedOnSaleData);
-        console.log(chosenFilter, " value is = " + sortedOnSaleData);
+        break;
+      case "review":
+        setFilteredData(sortedReviewData);
         break;
       case "sort-low-to-high":
         setFilteredData(sortedLowPriceData);
-        console.log(chosenFilter, " value is = " + sortedLowPriceData);
         break;
       case "sort-high-to-low":
         setFilteredData(sortedHighPriceData);
-        console.log(chosenFilter, " value is = " + sortedHighPriceData);
         break;
       default:
         setFilteredData(data);
@@ -197,8 +217,10 @@ const Gallery = () => {
           onChange={(e) => handleFilter(e)}
         >
           <option value="all">Show All</option>
-          <option value="alphabetical">A-Z</option>
+          <option value="alpha-az">A-Z</option>
+          <option value="alpha-za">Z-A</option>
           <option value="sort-sale">On Sale</option>
+          <option value="review">Customer Review</option>
           <option value="sort-low-to-high">Price: (Low to High)</option>
           <option value="sort-high-to-low">Price: (High to Low)</option>
         </select>

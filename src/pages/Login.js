@@ -182,6 +182,13 @@ const Login = () => {
     }
   };
 
+  const handleCancelForgotPassword = () => {
+    document.querySelectorAll(".login-input").forEach((input) => {
+      input.removeAttribute("readOnly");
+    });
+    setForgotPassword(false);
+  };
+
   const handleForm = (value) => {
     setIsLogin(value === "login" ? true : value === "signup" ? false : true);
   };
@@ -263,14 +270,22 @@ const Login = () => {
                   required
                   autoFocus
                 />
-
-                <button
-                  className="forgot-password-submit-button"
-                  type="button"
-                  onClick={handleSendConfirmation}
-                >
-                  Submit
-                </button>
+                <div className="forgot-password-buttons-container">
+                  <button
+                    className="forgot-password-cancel-button"
+                    type="button"
+                    onClick={() => handleCancelForgotPassword()}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="forgot-password-submit-button"
+                    type="button"
+                    onClick={handleSendConfirmation}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             )}
             <div className="login-invalid-message">
