@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/silya/static/css/main.ac12d7c4.css",
-    "main.js": "/silya/static/js/main.8f46bd04.js",
+    "main.css": "/silya/static/css/main.87072c6c.css",
+    "main.js": "/silya/static/js/main.99b80e55.js",
     "index.html": "/silya/index.html",
-    "main.ac12d7c4.css.map": "/silya/static/css/main.ac12d7c4.css.map",
-    "main.8f46bd04.js.map": "/silya/static/js/main.8f46bd04.js.map"
+    "main.87072c6c.css.map": "/silya/static/css/main.87072c6c.css.map",
+    "main.99b80e55.js.map": "/silya/static/js/main.99b80e55.js.map"
   },
   "entrypoints": [
-    "static/css/main.ac12d7c4.css",
-    "static/js/main.8f46bd04.js"
+    "static/css/main.87072c6c.css",
+    "static/js/main.99b80e55.js"
   ]
 }
