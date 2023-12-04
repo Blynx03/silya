@@ -41,6 +41,7 @@
 .design1 {
   top: -220px;
   right: -240px;
+  z-index: -1;
 }
 
 .design2 {
@@ -452,5 +453,80 @@ hr {
 
   .payment-submit-button {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .payment-container {
+    width: 100%;
+  }
+
+  .payment-body-container {
+    flex-direction: column;
+    height: unset;
+  }
+
+  .payment-method-container {
+    gap: 8px;
+  }
+
+  .payment-options-title {
+    font-size: clamp(0.9rem, 1.4vw, 1rem);
+  }
+
+  .payment-credit-card-secure-info,
+  .payment-paypal-secure-info {
+    padding-left: 4px;
+    font-size: 0.5rem;
+  }
+
+  .payment-form-container {
+    padding: 5px;
+  }
+
+  .payment-options-container {
+    width: 100%;
+    padding: 8px 5px;
+  }
+  .payment-settings-container {
+    width: 100%;
+  }
+
+  .payment-settings-title {
+    font-size: clamp(0.85rem, 2.4vw, 1rem);
+    padding: 10px;
+  }
+
+  .payment-transaction-time-container {
+    padding: 6px 10%;
+  }
+
+  .payment-subtotal-tax-container {
+    padding: 6px 10%;
+  }
+
+  .payment-total-value {
+    padding: 10px 15% 90px;
+  }
+
+  .payment-submit-button {
+    width: 38%;
+    bottom: 35px;
+    right: calc((100% - 38%) / 2);
+  }
+}
+
+@media (max-width: 450px) {
+  .design1 {
+    right: -320px;
+  }
+
+  .payment-total-value {
+    padding: 10px 15% 90px;
+  }
+
+  .payment-submit-button {
+    font-size: 0.7rem;
+    bottom: 26px;
   }
 }

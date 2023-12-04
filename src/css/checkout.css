@@ -63,7 +63,7 @@
 
 .cart-item-image-container {
   width: 220px;
-  height: 100%;
+  height: auto;
   box-shadow: 0 0 10px 0px gray;
 }
 
@@ -263,11 +263,123 @@
   }
 
   .checkout-btn {
-    width: 70%;
+    width: 75%;
     font-size: 0.8rem;
     letter-spacing: 0;
     padding: 1%;
     height: 40px;
     color: lawngreen;
+  }
+}
+
+@media (max-width: 850px) {
+  .checkout-container {
+    width: 100vw;
+  }
+
+  .cart-checkout-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .checkout-wrapper {
+    order: 1;
+    min-width: 100%;
+    height: 10rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .checkout-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 20% 80%;
+    grid-template-areas: "message message message" "sub-total delivery checkout";
+    padding: 2%;
+    justify-self: center;
+    row-gap: 20px;
+  }
+
+  .free-delivery-message {
+    grid-area: message;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+  }
+
+  .subtotal-title-price-container {
+    grid-area: sub-total;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-title {
+    font-size: 1.6rem;
+  }
+  .checkout-delivery-option-container {
+    grid-area: delivery;
+    justify-self: center;
+    align-self: center;
+    width: 80%;
+    height: 80%;
+    padding: 1% 10%;
+    gap: 5px;
+  }
+
+  .checkout-delivery-label,
+  .checkout-pickup-label {
+    padding: 0;
+  }
+
+  .checkout-btn {
+    grid-area: checkout;
+    justify-self: center;
+    font-size: clamp(0.7rem, 1.6vw, 0.75rem);
+  }
+
+  .cart-wrapper {
+    order: 2;
+    min-width: 100%;
+  }
+
+  .cart-item-image-container {
+    width: 40%;
+    height: 100%;
+  }
+
+  .cart-item-description-container {
+    font-size: clamp(0.7rem, 2vw, 1rem);
+  }
+
+  .cart-description-quantity-container > .cart-description-quantity-title {
+    font-size: clamp(0.65rem, 1.7vw, 0.8rem);
+  }
+}
+
+@media (max-width: 550px) {
+  .checkout-box {
+    row-gap: 5px;
+  }
+  .checkout-delivery-option-container {
+    width: 90%;
+    padding: 1% 4%;
+    height: 50%;
+  }
+
+  .cart-checkout-container {
+    gap: 20px;
+  }
+
+  .checkout-delivery-option-container > label {
+    font-size: 0.65rem;
   }
 }

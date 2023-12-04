@@ -133,7 +133,9 @@
 }
 
 @keyframes breathe {
-  0%,
+  0% {
+    transform: scale(1);
+  }
   50% {
     transform: scale(0.8);
   }
@@ -143,6 +145,29 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes spin-y {
+  0% {
+    transform: rotateX(0);
+    color: var(--accent1-1);
+  }
+  25% {
+    transform: rotateX(1080deg);
+    color: var(--primary1);
+  }
+  50% {
+    transform: rotateX(720deg);
+    color: var(--accent1-2);
+  }
+  75% {
+    transform: rotateX(360deg);
+    color: var(--accent1-3);
+  }
+  100% {
+    transform: rotateX(0deg);
+    color: var(--accent1-1);
   }
 }
 
@@ -202,13 +227,33 @@
       line-height: 0px;
     }
     100% {
-      line-height: 35px;
+      line-height: 40px;
     }
   }
 
   @keyframes decrease-line-height {
     0% {
-      line-height: 35px;
+      line-height: 40px;
+    }
+    100% {
+      line-height: 0px;
+    }
+  }
+}
+
+@media (max-width: 1080px) and (max-height: 450px) {
+  @keyframes increase-line-height {
+    0% {
+      line-height: 0px;
+    }
+    100% {
+      line-height: 25px;
+    }
+  }
+
+  @keyframes decrease-line-height {
+    0% {
+      line-height: 25px;
     }
     100% {
       line-height: 0px;

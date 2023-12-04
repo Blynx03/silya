@@ -49,6 +49,12 @@
   }
 }
 
+@media (max-width: 1080px) and (max-height: 450px) {
+  .content-container {
+    height: 104%;
+  }
+}
+
 /* @media (max-width: 890px) {
   .aside-container {
     width: 140px;

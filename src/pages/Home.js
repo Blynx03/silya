@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import "../css/home.css";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
 
 const Home = () => {
   let navigate = useNavigate();
+  const clientContext = useContext(UserContext);
+  let refAside = clientContext.refAside;
+  let windowWidth = clientContext.windowWidth;
 
   useEffect(() => {
-    document.querySelector(".aside-container").style.visibility = "visible";
-  }, []);
+    refAside.current.style.display = windowWidth <= 420 ? "none" : "block";
+  }, [windowWidth]);
 
   const handleClick = () => {
     navigate("/gallery");
@@ -15,7 +19,7 @@ const Home = () => {
 
   return (
     <main className="home-container">
-      <section className="image-container" onClick={handleClick}>
+      <section className="home-image-container" onClick={handleClick}>
         <div className="single-image-container img1-container">
           <img
             src="images/front-page/img1.avif"

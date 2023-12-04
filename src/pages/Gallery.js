@@ -16,6 +16,21 @@ const Gallery = () => {
   const setUserInfo = clientContext.setUserInfo;
   const setLastClicked = clientContext.setLastClicked;
   const setLastClickedDetails = clientContext.setLastClickedDetails;
+  let windowWidth = clientContext.windowWidth;
+  let refAside = clientContext.refAside;
+
+  const productList = [
+    "#chair",
+    "#barstool",
+    "#armchair",
+    "#wingchair",
+    "#rockingchair",
+    "#gamingchair",
+    "#officechair",
+    "#swivelchair",
+    "#conferencechair",
+    "#recliningchair",
+  ];
   let sortedOnSaleData = [];
   let sortedLowPriceData = [];
   let sortedHighPriceData = [];
@@ -23,10 +38,15 @@ const Gallery = () => {
   let alphaAZData = [];
   let alphaZAData = [];
   const [filteredData, setFilteredData] = useState(data);
+  const [animate, setAnimate] = useState(false);
   const copiedData = JSON.parse(JSON.stringify(data));
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    refAside.current.style.display = windowWidth <= 420 ? "none" : "block";
+  }, []);
 
   const reDirect = ({ category, item }) => {
     let categoryIndex = 0;
@@ -84,16 +104,22 @@ const Gallery = () => {
   useEffect(() => {
     const chairId = location.hash;
 
-    if (chairId) {
-      const chairElement = document.querySelector(chairId);
-      if (chairElement) {
-        chairElement.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "center",
-        });
-        chairElement.style.animation = "breathe 2000ms ease 1000ms";
-      }
+    if (!chairId) {
+      return;
+    }
+
+    const chairElement = document.querySelector(chairId);
+    console.log(chairId);
+    if (chairElement) {
+      chairElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+      chairElement.style.animation = productList.includes(chairId)
+        ? "spin-y 2000ms ease-in 1000ms"
+        : "breathe 2000ms ease 1000ms";
+      setAnimate((prev) => !prev);
     }
   }, [location.hash]);
 

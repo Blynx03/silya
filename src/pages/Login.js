@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import "../css/login.css";
@@ -14,6 +14,11 @@ const Login = () => {
   const setCustomersRecord = clientContext.setCustomersRecord;
   let setLoggedIn = clientContext.setLoggedIn;
   const [forgotPassword, setForgotPassword] = useState(false);
+  const refLoginInvalidMessage = useRef(null);
+  const refForgotPasswordInput = useRef(null);
+  const refSignupConfirmPasswordInput = useRef(null);
+  const refSignupPasswordInput = useRef(null);
+  const refLoginEmailInput = useRef(null);
 
   const [formData, setFormData] = useState({
     login_email: "",
@@ -24,6 +29,12 @@ const Login = () => {
     signup_password: "",
     signup_confirm_password: "",
   });
+
+  let refAside = clientContext.refAside;
+
+  useEffect(() => {
+    refAside.current.style.display = "none";
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +58,8 @@ const Login = () => {
       }));
 
       // This will store the new customer in the customer record database
-      customersRecord.forEach((customer) => {
+      // customersRecord.forEach((customer) => {
+      for (const customer of customersRecord) {
         if (customer.userId === formData.get("signup_email")) {
           alert("Record already exists. Please login");
           setIsLogin(true);
@@ -73,14 +85,17 @@ const Login = () => {
           alert(
             "New Customer information is now supposedly to be stored in the database. Since this is just a front-end app, the new customer information will not be stored in the database."
           );
-          userInfo.cartItems || Object.keys(userInfo.cartItems).length <= 0
+          userInfo ||
+          userInfo.cartItems ||
+          Object.keys(userInfo.cartItems).length <= 0
             ? navigate(-1)
-            : navigate("/checkout", { state: { customer: userInfo } });
+            : navigate("/checkout");
+          return;
         }
-      });
+      }
     } else {
       if (e.target.dataset.value === "login-form") {
-        customersRecord.forEach((customer) => {
+        for (const customer of customersRecord) {
           let clientId = formData.get("login_email");
           let clientPassword = formData.get("login_password");
           if (
@@ -97,12 +112,12 @@ const Login = () => {
             }));
 
             setLoggedIn(true);
-            console.log(userInfo);
             !userInfo.cartItems ||
             !userInfo ||
             Object.keys(userInfo.cartItems).length <= 0
               ? navigate(-1)
-              : navigate("/checkout", { state: { customer: userInfo } });
+              : navigate("/checkout");
+            return;
           } else {
             // if entered login credentials are incorrect this will trigger the animation and clear
             // the input fields and show the invalid message and will focus back on the
@@ -111,10 +126,11 @@ const Login = () => {
               input.style.animation = "shake 350ms ease-in-out";
               input.value = "";
             });
-            document.querySelector(".login-invalid-message").style.cssText =
+            refLoginInvalidMessage.current.style.cssText =
               "visibility: visible; animation: shake 350ms ease-in-out";
+            refLoginEmailInput.current.focus();
           }
-        });
+        }
       }
     }
   };
@@ -129,31 +145,35 @@ const Login = () => {
   const handleForgotPasswordChange = (e) => {
     const value = e.target.value;
     if (e.target.value.length > 0) {
-      document.querySelector(".forgot-password-input").style.backgroundColor =
+      refForgotPasswordInput.current.style.backgroundColor =
         "rgb(250, 220, 220)";
     } else {
-      document.querySelector(".forgot-password-input").style.backgroundColor =
+      refForgotPasswordInput.current.style.backgroundColor =
         "rgb(225, 255, 225)";
     }
   };
 
-  const handleSendConfirmation = (e) => {
+  const handleSendConfirmation = () => {
     alert("Link sent to your email.  Please check your email.");
     console.log("send confirmation");
-    document.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+      refLoginEmailInput.current.focus();
+    }, 200);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     // if user attempted to login and inputted wrong entries, the invalid message will be visible.
     // the below will refresh it and will make it hidden again.
-    let invalidMessage = document.querySelector(".login-invalid-message").style;
-    if (
-      invalidMessage.visibility === "visible"
-        ? (invalidMessage.visibility = "hidden")
-        : (invalidMessage.visibility = "hidden")
-    )
-      setFormData({ ...formData, [name]: value });
+    let invalidMessage = refLoginInvalidMessage.current.style.visibility;
+    console.log(invalidMessage);
+
+    invalidMessage === "visible"
+      ? (invalidMessage = "hidden")
+      : (invalidMessage = "hidden");
+
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSignupChange = (e) => {
@@ -170,16 +190,12 @@ const Login = () => {
 
   const handleConfirmPassword = (e) => {
     const secondPassword = e.target.value;
-    if (
-      secondPassword === document.querySelector(".signup-password-input").value
-    ) {
-      document.querySelector(
-        ".signup-confirm-password-input"
-      ).style.backgroundColor = "rgb(225, 255, 225)";
+    if (secondPassword === refSignupPasswordInput.current.value) {
+      refSignupConfirmPasswordInput.current.style.backgroundColor =
+        "rgb(225, 255, 225)";
     } else {
-      document.querySelector(
-        ".signup-confirm-password-input"
-      ).style.backgroundColor = "rgb(250, 220, 220)";
+      refSignupConfirmPasswordInput.current.style.backgroundColor =
+        "rgb(250, 220, 220)";
     }
   };
 
@@ -187,11 +203,18 @@ const Login = () => {
     document.querySelectorAll(".login-input").forEach((input) => {
       input.removeAttribute("readOnly");
     });
+    document.querySelector(".login-email-input").focus();
     setForgotPassword(false);
   };
 
   const handleForm = (value) => {
     setIsLogin(value === "login" ? true : value === "signup" ? false : true);
+  };
+
+  console.log(userInfo);
+
+  const handleForgotPasswordSubmit = () => {
+    console.log("Forgotten password: email sent - form submitted");
   };
 
   return (
@@ -231,9 +254,10 @@ const Login = () => {
               id="login-email"
               name="login_email"
               placeholder="Email Address"
+              ref={refLoginEmailInput}
               className="login-email-input login-input"
               value={formData.login_email}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               required
               autoFocus
             />
@@ -247,10 +271,9 @@ const Login = () => {
               placeholder="Password"
               className="login-password-input login-input"
               value={formData.login_password}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               required
             />
-            {/* change the below forgot password to "a element" with href */}
             <div
               className="login-forgot-password"
               onClick={handleForgotPassword}
@@ -265,8 +288,10 @@ const Login = () => {
                 <input
                   type="email"
                   name="forgot-password-email"
+                  ref={refForgotPasswordInput}
                   className="forgot-password-input"
                   onChange={handleForgotPasswordChange}
+                  // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                   placeholder="Enter Email Address"
                   required
                   autoFocus
@@ -281,15 +306,15 @@ const Login = () => {
                   </button>
                   <button
                     className="forgot-password-submit-button"
-                    type="button"
-                    onClick={handleSendConfirmation}
+                    type="submit"
+                    onClick={() => handleSendConfirmation()}
                   >
                     Submit
                   </button>
                 </div>
               </div>
             )}
-            <div className="login-invalid-message">
+            <div ref={refLoginInvalidMessage} className="login-invalid-message">
               Invalid email or password. Please try again
             </div>
             <button type="submit" className="login-button">
@@ -375,6 +400,7 @@ const Login = () => {
               id="signup-password"
               name="signup_password"
               placeholder="Password"
+              ref={refSignupPasswordInput}
               className="signup-password-input"
               required
             />
@@ -389,6 +415,7 @@ const Login = () => {
               id="signup-confirm-password"
               name="signup_confirm_password"
               placeholder="Confirm password"
+              ref={refSignupConfirmPasswordInput}
               className="signup-confirm-password-input"
               onChange={(e) => handleConfirmPassword(e)}
               required

@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../css/navsidelinks.css";
 import data from "../asset/data";
+import UserContext from "../context/UserContext";
 
 const NavSideLinks = () => {
   const [isProductListShowing, setIsProductListShowing] = useState(true);
+  const clientContext = useContext(UserContext);
+  let windowWidth = clientContext.windowWidth;
+  let refAside = clientContext.refAside;
   // const handleLinkclick = (e, item) => {
   //   e.preventDefault();
   //   const href = e.target.dataset.value;
   //   document.querySelector(`.${item}`).setAttribute(`href`, `#${href}`);
   // };
+
+  useEffect(() => {
+    refAside.current.style.display = windowWidth <= 420 ? "none" : "block";
+  }, [windowWidth]);
 
   const spreadProducts = () => {
     setIsProductListShowing(!isProductListShowing);

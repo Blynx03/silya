@@ -14,6 +14,7 @@ const Details = () => {
   let refDetailMainImage = useRef(null);
   let refDetailGalleryImage = useRef(null);
   let refDetailCartButton = useRef(null);
+  let refDetailsDeliveryMethodContainer = useRef(null);
 
   const userInfo = clientContext.userInfo;
   const setUserInfo = clientContext.setUserInfo;
@@ -26,6 +27,8 @@ const Details = () => {
   const setDeliveryOption = clientContext.setDeliveryOption;
   const loggedIn = clientContext.loggedIn;
   const setCustomer = clientContext.setCustomer;
+  const refAside = clientContext.refAside;
+  const windowWidth = clientContext.windowWidth;
 
   const navigate = useNavigate();
 
@@ -34,6 +37,12 @@ const Details = () => {
     lastClicked.name,
     navigate
   );
+
+  useEffect(() => {
+    refAside.current.style.display = windowWidth <= 850 ? "none" : "block";
+    refDetailsDeliveryMethodContainer.current.style.display =
+      windowWidth <= 850 ? "none" : "block";
+  }, [windowWidth]);
 
   const changeMainImage = (newSrc) => {
     refDetailMainImage.current.setAttribute("src", newSrc);
@@ -141,6 +150,118 @@ const Details = () => {
           </div>
         </div>
 
+        {/* right-side - add-to-cart container  */}
+        <div className="details-buy-cart-container">
+          <div className="details-on-sale-price-container">
+            {lastClicked.onsale && (
+              <div className="details-on-sale">
+                <h4>ON-SALE</h4>
+              </div>
+            )}
+            <div className="details-price">
+              ${lastClicked.price.toFixed(2)}
+              <span className="each">each</span>
+            </div>
+            <div className="details-stock">
+              Stock:{" "}
+              {lastClicked.stock === 0
+                ? "No stock available"
+                : ` ${lastClicked.stock}`}
+              <div className="reached-max">
+                {lastClicked.stock === quantity
+                  ? " reached max quantity in stock"
+                  : ""}
+              </div>
+            </div>
+          </div>
+
+          <div className="details-quantity-cart-btn-container">
+            <div className="details-quantity-add-cart-btn-container">
+              <div className="details-quantity-title">QUANTITY</div>
+              <div className="details-quantity-container">
+                <button
+                  className="details-decrease-quantity-button"
+                  onClick={() =>
+                    setQuantity((prev) =>
+                      prev === 0 || lastClicked.stock === 0 ? 0 : prev - 1
+                    )
+                  }
+                >
+                  -
+                </button>
+                {/* <div className="details-quantity">{quantity}</div> */}
+                <input
+                  type="text"
+                  className="details-quantity-input"
+                  value={checkQuantity()}
+                  onChange={(e) => {
+                    const newValue = parseInt(e.target.value);
+                    if (newValue > 0 && newValue <= lastClicked.stock) {
+                      setQuantity(newValue);
+                    }
+                  }}
+                />
+                <button
+                  className="details-increase-quantity-button"
+                  onClick={() =>
+                    setQuantity((prev) =>
+                      prev === lastClicked.stock ? prev : prev + 1
+                    )
+                  }
+                >
+                  +
+                </button>
+              </div>
+              <div
+                ref={refDetailsDeliveryMethodContainer}
+                className="delivery-method-container"
+              >
+                <label htmlFor="deliver">
+                  <input
+                    id="deliver"
+                    type="radio"
+                    data-value="deliver"
+                    name="delivery"
+                    onChange={handleDeliveryOption}
+                    checked={deliveryOption === "deliver"}
+                  />
+                  SHIP TO HOME
+                </label>
+                <label htmlFor="pickup">
+                  <input
+                    id="pickup"
+                    type="radio"
+                    data-value="pickup"
+                    name="delivery"
+                    onChange={handleDeliveryOption}
+                    checked={deliveryOption === "pickup"}
+                  />
+                  PICK-UP IN STORE
+                </label>
+              </div>
+              <div className="details-add-buy-btn-container">
+                {/* IF ADD TO CART IS CLICKED ADD ANIMATION OR INFO THAT THE ITEM IS ADDED IN THE CART */}
+                <button
+                  ref={refDetailCartButton}
+                  type="button"
+                  className="details-add-btn details-cart-btn"
+                  onClick={handleAddToCart}
+                >
+                  ADD TO CART
+                </button>
+                {cartQuantity > 0 && (
+                  <button
+                    type="button"
+                    className="details-buy-btn details-cart-btn"
+                    onClick={handleCheckOut}
+                  >
+                    CHECKOUT
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="details-images-description-container">
           <div className="details-images-gallery-container">
             {/* main pic and iterate stored images */}
@@ -149,13 +270,15 @@ const Details = () => {
               id="details-container"
               className="details-main-image-container"
             >
-              <img
-                ref={refDetailMainImage}
-                src={`${detailsImagePath}img1.avif`}
-                alt={`${lastClicked.name} main`}
-                className="details-main-image"
-                onMouseOver={handleMainImageMouseOver}
-              />
+              <div className="details-main-image-sub-container">
+                <img
+                  ref={refDetailMainImage}
+                  src={`${detailsImagePath}img1.avif`}
+                  alt={`${lastClicked.name} main`}
+                  className="details-main-image"
+                  onMouseOver={handleMainImageMouseOver}
+                />
+              </div>
             </div>
             <div className="details-gallery-images-container">
               {/* whatever is focused in the images container should show as the main image */}
@@ -247,7 +370,7 @@ const Details = () => {
                             <div className="left-info-container">
                               <div className="rating-container">
                                 <div className="stars">
-                                  {rating(item.rating.stars)}
+                                  {rating("details", item.rating.stars)}
                                 </div>
                                 <div className="reviews">
                                   {`(${item.rating.reviews})`}
@@ -292,116 +415,6 @@ const Details = () => {
               )}
 
               {/* show images of browsed items and must be clickable. NOTE: avoid duplicates */}
-            </div>
-          </div>
-        </div>
-
-        {/* right-side - add-to-cart container  */}
-        <div className="details-buy-cart-container">
-          <div className="details-on-sale-price-container">
-            {lastClicked.onsale && (
-              <div className="details-on-sale">
-                <h4>ON-SALE</h4>
-              </div>
-            )}
-            <div className="details-price">
-              ${lastClicked.price.toFixed(2)}
-              <span className="each">each</span>
-            </div>
-            <div className="details-stock">
-              Stock:{" "}
-              {lastClicked.stock === 0
-                ? "No stock available"
-                : ` ${lastClicked.stock}`}
-              <div className="reached-max">
-                {lastClicked.stock === quantity
-                  ? " reached max quantity in stock"
-                  : ""}
-              </div>
-            </div>
-          </div>
-
-          <div className="details-quantity-cart-btn-container">
-            <div className="details-quantity-add-cart-btn-container">
-              <div className="details-quantity-title">QUANTITY</div>
-              <div className="details-quantity-container">
-                <button
-                  className="details-decrease-quantity-button"
-                  onClick={() =>
-                    setQuantity((prev) =>
-                      prev === 0 || lastClicked.stock === 0 ? 0 : prev - 1
-                    )
-                  }
-                >
-                  -
-                </button>
-                {/* <div className="details-quantity">{quantity}</div> */}
-                <input
-                  type="text"
-                  className="details-quantity-input"
-                  value={checkQuantity()}
-                  onChange={(e) => {
-                    const newValue = parseInt(e.target.value);
-                    if (newValue > 0 && newValue <= lastClicked.stock) {
-                      setQuantity(newValue);
-                    }
-                  }}
-                />
-                <button
-                  className="details-increase-quantity-button"
-                  onClick={() =>
-                    setQuantity((prev) =>
-                      prev === lastClicked.stock ? prev : prev + 1
-                    )
-                  }
-                >
-                  +
-                </button>
-              </div>
-              <div className="delivery-method-container">
-                <label htmlFor="deliver">
-                  <input
-                    id="deliver"
-                    type="radio"
-                    data-value="deliver"
-                    name="delivery"
-                    onChange={handleDeliveryOption}
-                    checked={deliveryOption === "deliver"}
-                  />
-                  SHIP TO HOME
-                </label>
-                <label htmlFor="pickup">
-                  <input
-                    id="pickup"
-                    type="radio"
-                    data-value="pickup"
-                    name="delivery"
-                    onChange={handleDeliveryOption}
-                    checked={deliveryOption === "pickup"}
-                  />
-                  PICK-UP IN STORE
-                </label>
-              </div>
-              <div className="details-add-buy-btn-container">
-                {/* IF ADD TO CART IS CLICKED ADD ANIMATION OR INFO THAT THE ITEM IS ADDED IN THE CART */}
-                <button
-                  ref={refDetailCartButton}
-                  type="button"
-                  className="details-add-btn details-cart-btn"
-                  onClick={handleAddToCart}
-                >
-                  ADD TO CART
-                </button>
-                {cartQuantity > 0 && (
-                  <button
-                    type="button"
-                    className="details-buy-btn details-cart-btn"
-                    onClick={handleCheckOut}
-                  >
-                    CHECKOUT
-                  </button>
-                )}
-              </div>
             </div>
           </div>
         </div>

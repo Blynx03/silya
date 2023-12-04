@@ -2,7 +2,7 @@
 const getImagePath = (category, chairName) => {
   if (!category || !chairName) {
     window.history.back();
-    console.log("it is undefined");
+    return;
   }
 
   let categoryLowerCase = category.split(" ").join("").toLowerCase();

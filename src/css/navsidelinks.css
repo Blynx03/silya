@@ -71,15 +71,25 @@
     font-size: 0.9rem;
   }
 
-  .sidebar-container {
-    line-height: 30px;
-  }
+  /* .sidebar-container {
+    line-height: 50px;
+  } */
   .sidebar-list-container {
     margin: 0.5em 0;
   }
 
   .list-chair {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .list-chair:hover {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1080px) and (max-height: 450px) {
+  .list-chair {
+    font-size: 0.75rem;
   }
 }
 

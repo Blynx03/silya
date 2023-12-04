@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import "../css/contact.css";
@@ -7,6 +7,7 @@ const Contact = () => {
   const clientContext = useContext(UserContext);
   let setUserInfo = clientContext.setUserInfo;
   let userInfo = clientContext.userInfo;
+  let refAside = clientContext.refAside;
   let navigate = useNavigate();
 
   const [contactFormData, setContactFormData] = useState({
@@ -18,9 +19,9 @@ const Contact = () => {
     contact_message: "",
   });
 
-  // useEffect(() => {
-  //   document.querySelector(".aside-container").style.visibility = "hidden";
-  // }, []);
+  useEffect(() => {
+    refAside.current.style.display = "none";
+  }, []);
 
   const handleSubmit = (e) => {
     const contactMessage = new FormData(e.target);

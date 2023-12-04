@@ -1,15 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import "../css/header.css";
 import data from "../asset/data";
 import NavHeader from "./NavHeader";
 import makeItProper from "./makeItProper";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
 
 const Header = () => {
   const [searchOutput, setSearchOutput] = useState([]);
   const [searchString, setSearchString] = useState("");
   const searchInputRef = useRef(null);
+  const clientContext = useContext(UserContext);
+  let windowWidth = clientContext.windowWidth;
   const searchLibrary = [];
+
   const navigate = useNavigate();
 
   data.forEach((product) => {
@@ -65,7 +69,11 @@ const Header = () => {
           <input
             type="text"
             className="search"
-            placeholder="What chair are you looking for?"
+            placeholder={
+              windowWidth >= 800
+                ? "What chair are you looking for?"
+                : "Search for chairs."
+            }
             value={searchString}
             ref={searchInputRef}
             onChange={(e) => {

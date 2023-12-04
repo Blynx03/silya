@@ -270,6 +270,11 @@ label {
     height: 40rem;
   }
 
+  .login-signup-container {
+    align-items: unset;
+    padding: 28px 0 40px;
+  }
+
   .signup-title,
   .login-title {
     font-size: 2rem;
@@ -290,5 +295,31 @@ label {
     /* justify-content: ; */
     width: 80%;
     padding: 3.5% 0 0.5%;
+  }
+}
+
+@media (max-width: 850px) {
+  .login-signup-container {
+    align-items: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-wrapper {
+    width: 100%;
+    /* padding: 2% 5%; */
+  }
+
+  .login-signup-container {
+    padding: 20px;
+  }
+
+  .login-signup-button-container {
+    width: 80%;
+  }
+
+  .login-btn,
+  .signup-btn {
+    width: 50%;
   }
 }

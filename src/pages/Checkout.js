@@ -18,6 +18,8 @@ const Checkout = () => {
   const customer = clientContext.customer;
   const setCustomer = clientContext.setCustomer;
   const loggedIn = clientContext.loggedIn;
+  const windowWidth = clientContext.windowWidth;
+  const refAside = clientContext.refAside;
 
   const navigate = useNavigate();
 
@@ -25,6 +27,10 @@ const Checkout = () => {
   // const location = useLocation();
 
   // document.querySelector(".aside-container").style.visibility = "hidden";
+
+  useEffect(() => {
+    refAside.current.style.display = windowWidth <= 850 ? "none" : "block";
+  }, [windowWidth]);
 
   useEffect(() => {
     if (userInfo.cartItems.length > 0) {
@@ -224,7 +230,7 @@ const Checkout = () => {
               className="checkout-btn"
               onClick={handleCheckout}
             >
-              PROCEED TO CHECKOUT
+              {window.innerWidth <= 550 ? "CHECKOUT" : "PROCEED TO CHECKOUT"}
             </button>
           </div>
         </div>

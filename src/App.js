@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./css/App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -19,6 +19,7 @@ function App() {
   const [lastClickedDetails, setLastClickedDetails] = useState({});
   const [itemsInCart, setItemsInCart] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [deliveryOption, setDeliveryOption] = useState("deliver");
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(() => {
@@ -30,6 +31,8 @@ function App() {
       return {};
     }
   });
+  const refAside = useRef();
+  // const refAsideContent = useRef();
   const [subTotalPrice, setSubTotalPrice] = useState(0);
 
   const [customer, setCustomer] = useState(userInfo);
@@ -156,6 +159,23 @@ function App() {
     },
   ]);
 
+  let handleResize = () => {
+    if (refAside.current.style.display) {
+      refAside.current.style.display =
+        window.screen.width <= 420 ? "none" : "block";
+    } else {
+      return;
+    }
+    setWindowWidth(window.screen.width);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+  console.log("in App window width is = ", windowWidth);
   return (
     <UserContext.Provider
       value={{
@@ -179,12 +199,15 @@ function App() {
         setDeliveryOption,
         subTotalPrice,
         setSubTotalPrice,
+        refAside,
+        windowWidth,
+        setWindowWidth,
       }}
     >
       <div className="curtain">
         <Header className="header-wrapper" />
         <div className="aside-content-container">
-          <aside className="aside-container">
+          <aside ref={refAside} className="aside-container">
             <NavSideLinks />
           </aside>
           <article className="content-container">
