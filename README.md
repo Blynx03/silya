@@ -23,6 +23,7 @@ Silya is a complete front-end e-commerce website designed for buying chairs. The
 - Payment page with options for credit card or PayPal payment.
 - Form for credit card details and summary of the transaction.
 - Smooth navigation between pages for a user-friendly experience.
+- Responsive design for a seamless user experience across devices.
 
 ## Pages
 
@@ -78,7 +79,3 @@ To run the project locally, follow these steps:
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
 5. Use abc@abc.com for the email and "abc" for the password.
-
-## On Going
-
-- Responsive design for a seamless user experience across devices.

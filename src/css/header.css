@@ -261,10 +261,29 @@
 }
 
 @media (max-width: 650px) {
+  .header-wrapper {
+    padding: 0 4%;
+  }
+
+  .silya-img {
+    width: 30px;
+  }
+  .silya {
+    font-size: 1.8rem;
+  }
+
+  .slogan {
+    font-size: 0.65rem;
+  }
+
   .nav-container {
-    width: 10%;
+    width: 20%;
   }
   .search-container {
-    width: 40%;
+    width: 30%;
+  }
+
+  .search-container span {
+    font-size: 1.1rem;
   }
 }

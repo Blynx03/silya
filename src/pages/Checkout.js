@@ -83,6 +83,11 @@ const Checkout = () => {
   };
 
   const handleCheckout = () => {
+    if (cartQuantity <= 0) {
+      alert("The Cart is empty!");
+      navigate("/");
+      return;
+    }
     let updatedCustomer = { ...customer, delivery_method: deliveryOption };
     setCustomer(updatedCustomer);
     let updatedUserInfo = {

@@ -10,7 +10,8 @@ const Home = () => {
   let windowWidth = clientContext.windowWidth;
 
   useEffect(() => {
-    refAside.current.style.display = windowWidth <= 420 ? "none" : "block";
+    console.log(windowWidth <= 650);
+    refAside.current.style.display = windowWidth <= 650 ? "none" : "block";
   }, [windowWidth]);
 
   const handleClick = () => {
@@ -57,11 +58,17 @@ const Home = () => {
         </div>
         <div className="content-description-container">
           <em className="quote1">
-            "The Seat for Every <strong> Perfect Moment</strong>"
+            "The Seat for Every{" "}
+            <strong>
+              {" "}
+              Perfect Moment<em className="right-quote">"</em>
+            </strong>
           </em>
           <em className="quote2">
-            "The <strong>Perfect</strong> Seat for Every <strong>Moment</strong>
-            "
+            "The <strong>Perfect</strong> Seat for Every{" "}
+            <strong>
+              Moment<em className="right-quote">"</em>
+            </strong>
           </em>
         </div>
       </section>
