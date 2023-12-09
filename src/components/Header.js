@@ -47,6 +47,9 @@ const Header = () => {
 
   const handleSearchPhoto = (e) => {
     console.log(searchString.toUpperCase());
+    console.log(
+      "This will require special software to help identify closest match of uploaded photos"
+    );
     // navigate('/details', state: {photo_category: , photo_item: })
   };
 
